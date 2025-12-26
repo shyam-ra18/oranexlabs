@@ -18,8 +18,9 @@ export default {
         'primary': '#FF5A24',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        serif: ['Playfair Display', 'serif'],
+        sans: ['Satoshi', 'system-ui', 'sans-serif'],
+        display: ['Clash Display', 'sans-serif'],
+        serif: ['Clash Display', 'serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

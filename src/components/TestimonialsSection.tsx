@@ -60,7 +60,7 @@ export function TestimonialsSection() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-[300px_300px] gap-4 md:gap-6">
-                {feedback.map((item, idx) => (
+                {feedback.map((item: any, idx: number) => (
                     <motion.div
                         key={idx}
                         initial={{ opacity: 0, x: item.direction.x, y: item.direction.y, scale: 0.9 }}
