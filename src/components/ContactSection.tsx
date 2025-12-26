@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, ChevronDown, MoveRight } from "lucide-react";

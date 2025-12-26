@@ -1,7 +1,5 @@
 import { cn } from "@/lib/utils";
-import { useEffect } from "react";
 // @ts-ignore
-import Lenis from 'lenis'; // Assuming global lenis or from context if available, but here we'll use event dispatch or native scroll intercept. 
 // Actually, since we set up Lenis in SmoothScroll.tsx, we need a way to access that instance or just rely on native behavior if we can't access it.
 // However, the user specifically asked for "slow high slow" scroll on click.
 // We can use a custom scroll function here if we don't have global access to the Lenis instance.

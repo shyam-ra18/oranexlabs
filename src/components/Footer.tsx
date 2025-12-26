@@ -1,5 +1,4 @@
 
-import { cn } from "@/lib/utils";
 import { Twitter, Linkedin, Instagram, Github } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
