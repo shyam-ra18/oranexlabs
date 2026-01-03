@@ -63,12 +63,6 @@ export function ServicesSection() {
     useGSAP(() => {
         const cards = cardsRef.current;
 
-        // Random start positions for "Chaotic Entry"
-        const getRandomStart = () => {
-            const dirs = [{ x: -100, y: 0 }, { x: 100, y: 0 }, { x: 0, y: 100 }, { x: 0, y: -100 }];
-            return dirs[Math.floor(Math.random() * dirs.length)];
-        };
-
         // Create animation
         gsap.fromTo(cards,
             {
