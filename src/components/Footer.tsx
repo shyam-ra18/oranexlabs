@@ -1,5 +1,5 @@
 
-import { Twitter, Linkedin, Github, Instagram, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
 export function Footer() {
     return (

@@ -1,6 +1,6 @@
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Menu, X } from "lucide-react";
 import { useState, type MouseEvent as ReactMouseEvent } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
 
 
 const navLinks = [

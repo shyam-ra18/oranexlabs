@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { Minus, Plus } from "lucide-react";
+import { useState } from "react";
 
 const faqs = [
     {

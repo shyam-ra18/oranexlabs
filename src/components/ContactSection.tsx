@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
-import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, ArrowRight, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle, ArrowRight, Check, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const services = [
     "Web Development", "Mobile Engineering", "AI Integrations",

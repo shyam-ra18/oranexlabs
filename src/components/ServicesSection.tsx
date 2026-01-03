@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
-import { ArrowUpRight } from "lucide-react";
+import { useGSAP } from "@gsap/react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);

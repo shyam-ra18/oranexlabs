@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
-import { Check, Zap, Sparkles, Sparkle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Check, Sparkle, Zap } from "lucide-react";
+import { useState } from "react";
 
 // --- SUBSCRIPTION PLANS ---
 const plans = [
