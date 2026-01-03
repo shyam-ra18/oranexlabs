@@ -1,5 +1,5 @@
-import { GridSection } from "@/components/ui/GridContainer";
 import { useState } from "react";
+import { GridSection } from "@/components/ui/GridContainer";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -7,23 +7,23 @@ import { cn } from "@/lib/utils";
 const faqs = [
     {
         question: "What is your typical project timeline?",
-        answer: "Most high-impact web projects are delivered within 4-8 weeks. We value momentum and work in dedicated sprints to ensure your product launches while the market opportunity is fresh."
+        answer: "Most high-impact systems are architected and deployed within 4-12 weeks. We operate in high-velocity sprints to maintain market momentum."
     },
     {
-        question: "Do you handle both design and development?",
-        answer: "Yes. We believe the best digital products are born from a unified vision. Our team handles everything from strategy and UX/UI design to full-stack engineering and deployment."
+        question: "Do you handle both architecture and implementation?",
+        answer: "Yes. We providing end-to-end full-stack engineering, from core architecture and AI model integration to premium front-end delivery."
     },
     {
-        question: "What is your engagement model?",
-        answer: "We typically work on a project basis with a fixed scope and timeline. For ongoing partners, we offer retainer packages for continuous iteration, optimization, and feature expansion."
+        question: "What is your tech stack of choice?",
+        answer: "We are industry-agnostic but favor high-performance tools: React/Next.js, Node.js/Go, Python for AI, and Rust/Solidity for specialized protocols."
     },
     {
-        question: "Do you work with startups or established enterprises?",
-        answer: "We partner with ambitious brands of all sizes. Whether you're a funded startup building your MVP or an enterprise rethinking your digital presence, we adapt our process to your scale."
+        question: "How do you ensure code quality?",
+        answer: "100% test coverage, strict TypeScript enforcement, and multi-stage peer reviews are standard in our internal protocol."
     },
     {
-        question: "How do we get started?",
-        answer: "It starts with a conversation. Click 'Start a Project', fill out the brief form, and we'll schedule a discovery call to see if we're the right fit for your vision."
+        question: "Do you offer post-launch support?",
+        answer: "Absolutely. We offer retained engineering tiers to ensure system uptime, security patching, and iterative feature development."
     }
 ];
 
@@ -31,55 +31,87 @@ export function FAQSection() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
 
     return (
-        <GridSection className="text-left" hasBorderBottom={true}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-6">
-                <div>
-                    <div className="inline-block px-3 py-1 border border-black/10 text-accent-orange text-xs font-medium tracking-widest uppercase mb-4">
-                        Common Questions
-                    </div>
-                    <h2 className="text-2xl md:text-5xl font-serif text-zinc-900">
-                        Curious about our <span className="italic text-zinc-400">process?</span>
-                    </h2>
-                </div>
-            </div>
+        <GridSection id="faq" className="w-full bg-background border-t border-b border-white/10 p-0">
+            <div className="max-w-[1440px] mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-12">
 
-            <div className="max-w-3xl mx-auto">
-                <div className="border-t border-black/10">
-                    {faqs.map((faq, idx) => (
-                        <FAQItem
-                            key={idx}
-                            question={faq.question}
-                            answer={faq.answer}
-                            isOpen={openIndex === idx}
-                            onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                        />
-                    ))}
+                    {/* --- LEFT COLUMN: Sticky Header (Cols 1-5) --- */}
+                    <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-white/10 relative">
+                        <div className="lg:sticky lg:top-32 space-y-8">
+                            <h2 className="text-5xl md:text-6xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                                Process <br />
+                                <span className="text-vibranium">Queries</span>
+                            </h2>
+                            <p className="text-zinc-500 text-lg max-w-sm font-sans leading-relaxed">
+                                Technical clarity regarding our engineering standards, engagement models, and delivery protocols.
+                            </p>
+
+                            {/* Decorative Line */}
+                            <div className="w-12 h-[1px] bg-vibranium" />
+
+                            <div className="text-xs font-mono text-vibranium uppercase tracking-widest pt-4">
+                                System_FAQs_v2.0
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* --- RIGHT COLUMN: FAQ Grid List (Cols 6-12) --- */}
+                    <div className="lg:col-span-7">
+                        {faqs.map((faq, idx) => (
+                            <FAQItem
+                                key={idx}
+                                index={idx}
+                                question={faq.question}
+                                answer={faq.answer}
+                                isOpen={openIndex === idx}
+                                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                            />
+                        ))}
+                    </div>
+
                 </div>
             </div>
         </GridSection>
     );
 }
 
-function FAQItem({ question, answer, isOpen, onClick }: { question: string, answer: string, isOpen: boolean, onClick: () => void }) {
+function FAQItem({ question, answer, isOpen, onClick, index }: { question: string, answer: string, isOpen: boolean, onClick: () => void, index: number }) {
     return (
-        <div className="border-b border-black/10">
+        <div className="border-b border-white/10 last:border-b-0">
             <button
                 onClick={onClick}
-                className="w-full flex items-center justify-between py-8 text-left group hover:bg-zinc-50 transition-colors px-4 -mx-4"
+                className="w-full flex items-start justify-between py-10 px-8 md:px-12 text-left group transition-all duration-300"
             >
-                <span className={cn(
-                    "text-lg md:text-xl font-medium transition-colors duration-300",
-                    isOpen ? "text-accent-orange" : "text-zinc-900 group-hover:text-zinc-700"
+                <div className="flex items-start gap-6 md:gap-8 pr-8">
+                    {/* Index Number */}
+                    <span className={cn(
+                        "text-xs font-mono mt-1.5 uppercase tracking-widest transition-colors duration-300",
+                        isOpen ? "text-vibranium" : "text-zinc-600 group-hover:text-zinc-400"
+                    )}>
+                        {(index + 1).toString().padStart(2, '0')}
+                    </span>
+
+                    {/* Question Title */}
+                    <span className={cn(
+                        "text-xl md:text-2xl font-display font-bold uppercase tracking-tight transition-colors duration-300",
+                        isOpen ? "text-white" : "text-zinc-400 group-hover:text-white"
+                    )}>
+                        {question}
+                    </span>
+                </div>
+
+                {/* Icon Box - Sharp Edge */}
+                <div className={cn(
+                    "flex-shrink-0 w-8 h-8 flex items-center justify-center border sharp-edge transition-all duration-300 mt-1",
+                    isOpen
+                        ? "border-vibranium text-vibranium"
+                        : "border-white/10 text-zinc-600 group-hover:border-white/30 group-hover:text-white"
                 )}>
-                    {question}
-                </span>
-                <span className={cn(
-                    "flex-shrink-0 ml-4 w-8 h-8 flex items-center justify-center border transition-all duration-300",
-                    isOpen ? "border-accent-orange bg-accent-orange text-white" : "border-black/10 text-zinc-400 group-hover:border-black/30 group-hover:text-zinc-900"
-                )}>
-                    {isOpen ? <Minus size={16} /> : <Plus size={16} />}
-                </span>
+                    {isOpen ? <Minus size={14} strokeWidth={2} /> : <Plus size={14} strokeWidth={2} />}
+                </div>
             </button>
+
+            {/* Answer Content */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -89,9 +121,13 @@ function FAQItem({ question, answer, isOpen, onClick }: { question: string, answ
                         transition={{ duration: 0.3, ease: "easeInOut" }}
                         className="overflow-hidden"
                     >
-                        <p className="pb-8 text-zinc-500 leading-relaxed max-w-2xl px-4 -mx-4">
-                            {answer}
-                        </p>
+                        <div className="pb-10 px-8 md:px-12 pl-[60px] md:pl-[84px]">
+                            <div className="max-w-xl">
+                                <p className="text-zinc-400 text-base md:text-lg leading-relaxed font-sans border-l-2 border-vibranium pl-6">
+                                    {answer}
+                                </p>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

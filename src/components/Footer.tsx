@@ -1,128 +1,135 @@
 
-import { Twitter, Linkedin, Instagram, Github } from "lucide-react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { Twitter, Linkedin, Github, Instagram, ArrowUpRight } from "lucide-react";
 
 export function Footer() {
-    const containerRef = useRef<HTMLElement>(null);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start end", "end end"]
-    });
-
-    const rotateX = useTransform(scrollYProgress, [0, 1], [45, 0]);
-    const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
-    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-    const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-
-    const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-        // Only prevent default if it's a hash link
-        if (href.startsWith('#')) {
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                // @ts-ignore
-                if (window.lenis) {
-                    // @ts-ignore
-                    window.lenis.scrollTo(target, {
-                        duration: 2.0,
-                        easing: (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-                    });
-                } else {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-    };
-
     return (
-        <footer ref={containerRef} className="relative py-12 md:py-20 px-4 md:px-6 overflow-hidden perspective-[1000px]">
-            {/* Background Watermark (Subtle) - Static for depth contrast */}
-            <div className="absolute -bottom-[4%] left-1/2 -translate-x-1/2 select-none pointer-events-none opacity-[0.03]">
-                <span className="text-[15vw] md:text-[20vw] font-bold tracking-tighter text-text-primary">ORANEX</span>
-            </div>
+        <footer className="w-full bg-background border-t border-white/10">
+            <div className="max-w-[1440px] mx-auto">
 
-            {/* Floating Card Container - 3D Animated */}
-            <motion.div
-                style={{ rotateX, scale, opacity, y }}
-                className="max-w-[1400px] mx-auto bg-gradient-to-t from-white/40 to-white/5 shadow-xl shadow-black/5 border border-black/5 p-8 md:p-16 relative z-10 origin-bottom"
-            >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+                {/* --- ROW 1: Navigation Links (4 Columns) --- */}
+                <div className="grid grid-cols-1 md:grid-cols-4 border-b border-white/10">
+                    <FooterColumn
+                        title="Services"
+                        links={["Web Platforms", "Mobile Engineering", "AI Agent Systems", "Cloud Architecture"]}
+                    />
+                    <FooterColumn
+                        title="Company"
+                        links={["About Oranex", "Case Studies", "Careers", "Contact"]}
+                    />
+                    <FooterColumn
+                        title="Resources"
+                        links={["Engineering Blog", "Open Source", "System Status", "Brand Assets"]}
+                    />
 
-                    {/* Brand Column (Left - Spans 4 cols) */}
-                    <div className="md:col-span-5 flex flex-col justify-between">
-                        <div className="space-y-6">
-                            <div className="flex items-center gap-2">
-                                <img src="/oranex-logo.svg" alt="Oranex" className="h-6 w-auto" />
-                                <span className="font-serif font-bold text-xl tracking-tight text-zinc-900">Oranex Labs</span>
+                    {/* Social Column */}
+                    <div className="relative group p-8 md:p-12 border-b md:border-b-0 border-white/10 flex flex-col justify-between h-full hover:bg-white/[0.02] transition-colors">
+                        {/* THE HOVER GRADIENT LINE */}
+                        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="text-xs font-mono text-vibranium uppercase tracking-[0.2em] mb-8">
+                            Social_Grid
+                        </div>
+                        <div className="flex gap-4">
+                            <SocialIcon icon={Twitter} />
+                            <SocialIcon icon={Linkedin} />
+                            <SocialIcon icon={Github} />
+                            <SocialIcon icon={Instagram} />
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- ROW 2: Brand & Contact (2 Columns) --- */}
+                <div className="grid grid-cols-1 md:grid-cols-2 border-b border-white/10">
+
+                    {/* Left: Brand Identity */}
+                    <div className="relative group p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/[0.02] transition-colors">
+                        {/* THE HOVER GRADIENT LINE */}
+                        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="w-8 h-8 bg-vibranium sharp-edge flex items-center justify-center">
+                                <span className="text-white font-bold text-lg">O</span>
                             </div>
-                            <p className="text-zinc-500 text-sm leading-relaxed max-w-sm">
-                                Oranex Labs empowers ambitious brands to transform visions into premium digital experiences. We craft with precision, passion, and purpose.
-                            </p>
+                            <h2 className="text-2xl font-display font-bold text-white tracking-tight uppercase group-hover:text-vibranium transition-colors">
+                                Oranex Labs
+                            </h2>
                         </div>
-
-                        {/* Socials (Desktop place) */}
-                        <div className="hidden md:flex gap-4 mt-8">
-                            <SocialIcon icon={Twitter} href="#" />
-                            <SocialIcon icon={Instagram} href="#" />
-                            <SocialIcon icon={Linkedin} href="#" />
-                            <SocialIcon icon={Github} href="#" />
+                        <div className="space-y-1 text-zinc-500 text-sm font-sans">
+                            <p>Global HQ: San Francisco, CA</p>
+                            <p>Engineering: Pune, MH, India</p>
                         </div>
                     </div>
 
-                    {/* Spacer */}
-                    <div className="hidden md:block md:col-span-3" />
+                    {/* Right: Direct Contact */}
+                    <div className="relative group p-8 md:p-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 hover:bg-white/[0.02] transition-colors">
+                        {/* THE HOVER GRADIENT LINE */}
+                        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                    {/* Links Columns (Right - Spans 4 cols) */}
-                    <div className="md:col-span-4 grid grid-cols-2 gap-8">
-                        <div className="space-y-4">
-                            <h4 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider">Company</h4>
-                            <ul className="space-y-2.5 text-sm text-zinc-500">
-                                <li><a href="#services" onClick={(e) => handleScroll(e, "#services")} className="hover:text-accent-orange transition-colors">Services</a></li>
-                                <li><a href="#work" onClick={(e) => handleScroll(e, "#work")} className="hover:text-accent-orange transition-colors">Case Studies</a></li>
-                                <li><a href="#" className="hover:text-accent-orange transition-colors">Process</a></li>
-                                <li><a href="#" className="hover:text-accent-orange transition-colors">About</a></li>
-                            </ul>
+                        <div>
+                            <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2">
+                                New Business
+                            </div>
+                            <a href="mailto:hello@oranexlabs.com" className="text-xl md:text-2xl text-white font-display uppercase hover:text-vibranium transition-colors flex items-center gap-2">
+                                hello@oranexlabs.com <ArrowUpRight size={18} className="text-vibranium" />
+                            </a>
                         </div>
-                        <div className="space-y-4">
-                            <h4 className="text-sm font-semibold text-zinc-900 uppercase tracking-wider">Connect</h4>
-                            <ul className="space-y-2.5 text-sm text-zinc-500">
-                                <li><a href="#" className="hover:text-accent-orange transition-colors">Twitter / X</a></li>
-                                <li><a href="#" className="hover:text-accent-orange transition-colors">LinkedIn</a></li>
-                                <li><a href="#" className="hover:text-accent-orange transition-colors">Instagram</a></li>
-                                <li><a href="mailto:hello@oranexlabs.com" className="hover:text-accent-orange transition-colors">Email</a></li>
-                            </ul>
+                        <div>
+                            <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2">
+                                Emergency Ops
+                            </div>
+                            <div className="text-zinc-400 font-mono text-sm">
+                                +1 (415) 555-0199
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Mobile Socials (Bottom of grid) */}
-                    <div className="md:hidden flex gap-4 mt-4">
-                        <SocialIcon icon={Twitter} href="#" />
-                        <SocialIcon icon={Instagram} href="#" />
-                        <SocialIcon icon={Linkedin} href="#" />
-                        <SocialIcon icon={Github} href="#" />
                     </div>
                 </div>
 
-                {/* Divider */}
-                <div className="h-px w-full bg-zinc-200 my-10" />
-
-                {/* Bottom Row */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-500 font-medium">
-                    <p>&copy; {new Date().getFullYear()} Oranex Labs. All rights reserved.</p>
-                    <div className="flex gap-6">
-                        <p>Designed with intention.</p>
+                {/* --- ROW 3: Legal & Metadata --- */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-6 md:px-12 py-6 text-[10px] font-mono text-zinc-600 uppercase tracking-widest hover:text-zinc-500 transition-colors">
+                    <div className="flex flex-col md:flex-row gap-4 md:gap-8 mb-4 md:mb-0">
+                        <span>&copy; 2026 Oranex Labs Inc.</span>
+                        <a href="#" className="hover:text-vibranium transition-colors">Privacy Policy</a>
+                        <a href="#" className="hover:text-vibranium transition-colors">Terms of Service</a>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 bg-vibranium animate-pulse rounded-full" />
+                        <span>All Systems Operational</span>
                     </div>
                 </div>
-            </motion.div>
+
+            </div>
         </footer>
     );
 }
 
-function SocialIcon({ icon: Icon, href }: { icon: any, href: string }) {
+// --- SUB-COMPONENTS ---
+
+function FooterColumn({ title, links }: { title: string, links: string[] }) {
     return (
-        <a href={href} className="w-8 h-8 flex items-center justify-center bg-zinc-100 text-zinc-600 hover:bg-accent-orange hover:text-white transition-all duration-300">
-            <Icon size={16} />
+        <div className="relative group p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/[0.02] transition-colors">
+            {/* THE HOVER GRADIENT LINE */}
+            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <h4 className="text-xs font-mono text-vibranium uppercase tracking-[0.2em] mb-8">
+                {title}
+            </h4>
+            <ul className="space-y-4">
+                {links.map((link, i) => (
+                    <li key={i}>
+                        <a href="#" className="text-zinc-400 text-sm font-bold uppercase tracking-wide hover:text-white hover:pl-2 transition-all duration-300 block">
+                            {link}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    )
+}
+
+function SocialIcon({ icon: Icon }: { icon: any }) {
+    return (
+        <a href="#" className="w-10 h-10 border border-white/10 flex items-center justify-center text-zinc-400 hover:bg-vibranium hover:border-vibranium hover:text-white transition-all duration-300 sharp-edge">
+            <Icon size={18} />
         </a>
     )
 }

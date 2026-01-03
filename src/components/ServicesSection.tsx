@@ -1,148 +1,300 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
+import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Monitor, Smartphone, Cpu, ShoppingCart, Paintbrush, PlayCircle } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Register GSAP ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
+
+// --- SERVICE DATA ---
 const services = [
     {
-        title: "Web Development",
-        description: "High-performance web applications built with React, Next.js, and modern tools. We focus on scalability, speed, and clean code architecture.",
-        icon: Monitor,
-        bg: "bg-white",
-        text: "text-zinc-900",
-        tags: ["React", "Next.js", "TypeScript", "Tailwind"],
+        id: "01",
+        title: "Web Platforms",
+        description: "Next.js architectures built for velocity. We engineer SEO-optimized applications that feel like native software.",
+        tags: ["React", "Next.js", "Vercel"],
+        visual: "web"
     },
     {
-        title: "App Development",
-        description: "Native-quality cross-platform mobile experiences using React Native. We build intuitive interfaces that keep users engaged on any device.",
-        icon: Smartphone,
-        bg: "bg-zinc-100",
-        text: "text-zinc-900",
-        tags: ["iOS", "Android", "React Native", "Firebase"],
+        id: "02",
+        title: "Autonomous AI",
+        description: "Agentic workflows that think. We fine-tune LLMs and build RAG pipelines to automate complex business logic.",
+        tags: ["Python", "LangChain", "OpenAI"],
+        visual: "ai"
     },
     {
-        title: "AI Solutions",
-        description: "Intelligent agents, LLM integration, and smart automation for your business. Leverage the power of AI to transform your operations.",
-        icon: Cpu,
-        bg: "bg-zinc-900",
-        text: "text-white",
-        tags: ["OpenAI", "LangChain", "Automation", "LLMs"],
+        id: "03",
+        title: "Mobile Engineering",
+        description: "60fps everywhere. React Native solutions that share code while delivering uncompromising native performance.",
+        tags: ["React Native", "Expo", "Swift"],
+        visual: "mobile"
     },
     {
-        title: "E-commerce",
-        description: "Scaling digital storefronts with robust architectures. We build seamless shopping experiences that convert visitors into customers.",
-        icon: ShoppingCart,
-        bg: "bg-white",
-        text: "text-zinc-900",
-        tags: ["Shopify", "Stripe", "Headless", "UX"],
+        id: "04",
+        title: "Product Design",
+        description: "Technical aesthetics. We bridge the gap between Figma and code with a systematic design approach.",
+        tags: ["Figma", "Design Systems", "UX"],
+        visual: "design"
     },
     {
-        title: "UI Design",
-        description: "Beautiful, functional, and modern designs that tell your brand story. We push the boundaries of innovation through our creative UI designs.",
-        icon: Paintbrush,
-        bg: "bg-zinc-100",
-        text: "text-zinc-900",
-        tags: ["Figma", "Branding", "Prototyping", "Design Systems"],
+        id: "05",
+        title: "Cloud Infra",
+        description: "Serverless scalability. AWS/GCP architectures designed for 99.99% uptime and zero maintenance.",
+        tags: ["AWS", "Docker", "Terraform"],
+        visual: "cloud"
     },
     {
-        title: "Animation & Graphics",
-        description: "Dynamic motion graphics and interactive elements that bring your site to life. We offer top-tier animations in various forms.",
-        icon: PlayCircle,
-        bg: "bg-zinc-900",
-        text: "text-white",
-        tags: ["Framer Motion", "Lottie", "SVG", "Motion Design"],
-    },
+        id: "06",
+        title: "SaaS Systems",
+        description: "Business OS. Custom CRM and dashboard solutions with real-time data sync and role-based security.",
+        tags: ["PostgreSQL", "Redis", "Realtime"],
+        visual: "saas"
+    }
 ];
 
 export function ServicesSection() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+    // GSAP ANIMATION LOGIC
+    useGSAP(() => {
+        const cards = cardsRef.current;
+
+        // Random start positions for "Chaotic Entry"
+        const getRandomStart = () => {
+            const dirs = [{ x: -100, y: 0 }, { x: 100, y: 0 }, { x: 0, y: 100 }, { x: 0, y: -100 }];
+            return dirs[Math.floor(Math.random() * dirs.length)];
+        };
+
+        // Create animation
+        gsap.fromTo(cards,
+            {
+                autoAlpha: 0,
+                // Using function-based values for randomness
+                x: () => Math.random() * 200 - 100,
+                y: () => Math.random() * 200 + 100,
+                scale: 0.8,
+                filter: "blur(10px)"
+            },
+            {
+                duration: 1.2,
+                autoAlpha: 1,
+                x: 0,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                stagger: 0.1, // Sequential delay
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top 75%", // Triggers when top of section hits 75% of viewport
+                    toggleActions: "play none none reverse"
+                }
+            }
+        );
+    }, { scope: containerRef });
 
     return (
-        <GridSection className="relative bg-[#FAFAFA]" hasBorderBottom={true}>
-            <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8">
-                <div className="text-left">
-                    <div className="inline-block px-3 py-1 border border-black/10 text-accent-orange text-xs font-medium tracking-widest uppercase mb-6">
-                        Services
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-display font-medium text-zinc-900 tracking-tight leading-[1.1]">
-                        We are <span className="italic text-zinc-400">experts</span> at <br />
-                        providing digital solutions.
+        <GridSection hasBorderBottom={true} className="bg-[#050505] py-32 overflow-hidden" id="services">
+
+            {/* Header */}
+            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 px-6 md:px-0">
+                <div className="space-y-6">
+                    <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                        Our <br />
+                        <span className="text-[#8B5CF6]">
+                            Expertise
+                        </span>
                     </h2>
                 </div>
-                <div className="max-w-md pt-12 md:pt-24 font-sans text-zinc-500">
-                    <p className="leading-relaxed">
-                        From design to deployment, we provide end-to-end digital services that help your business scale and succeed in a competitive landscape.
-                    </p>
-                </div>
+                <p className="text-zinc-500 text-lg max-w-sm text-right font-sans leading-relaxed">
+                    We don't just write code.<br />
+                    We engineer digital assets that compound in value.
+                </p>
             </div>
 
-            <div ref={containerRef} className="relative flex flex-col gap-10 md:gap-20">
+            {/* The Grid System */}
+            <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-white/10">
                 {services.map((service, index) => (
-                    <ServiceCard key={service.title} service={service} index={index} total={services.length} />
+                    <div
+                        key={index}
+                        ref={(el) => { if (el) cardsRef.current[index] = el }} // Assign ref
+                        className="opacity-0 visibility-hidden" // Hide initially for GSAP
+                    >
+                        <ServiceCard {...service} />
+                    </div>
                 ))}
             </div>
         </GridSection>
     );
 }
 
-function ServiceCard({ service, index, total }: { service: typeof services[0], index: number, total: number }) {
+// --- INDIVIDUAL CARD COMPONENT ---
+function ServiceCard({ id, title, description, tags, visual }: any) {
     return (
-        <div
-            className="sticky top-24 md:top-32 w-full mb-10 md:mb-20"
-            style={{
-                zIndex: index + 1,
-                height: "auto"
-            }}
-        >
-            <motion.div
-                className={`relative w-full ${service.bg} border border-zinc-200 rounded-none overflow-hidden shadow-2xl flex flex-col md:flex-row min-h-[400px] md:min-h-[500px]`}
-                initial={{ opacity: 0, scale: 0.95, y: 50 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
-            >
-                <div className="p-8 md:p-16 flex-1 flex flex-col justify-between">
-                    <div>
-                        <div className={`inline-flex items-center justify-center p-4 bg-zinc-400/10 mb-8 ${service.text}`}>
-                            <service.icon size={32} />
-                        </div>
-                        <h3 className={`text-4xl md:text-6xl font-display font-medium mb-6 ${service.text}`}>
-                            {service.title}
-                        </h3>
-                        <p className={`text-lg md:text-xl max-w-xl leading-relaxed mb-10 ${service.text === 'text-white' ? 'text-zinc-400' : 'text-zinc-500'}`}>
-                            {service.description}
-                        </p>
+        <div className="group relative border-b border-r border-white/10 bg-[#050505] hover:bg-white/[0.02] transition-colors duration-500 overflow-hidden flex flex-col h-[500px]">
+
+            {/* 1. TOP: Abstract Visual Zone (50% Height) */}
+            <div className="h-1/2 w-full relative overflow-hidden flex items-center justify-center border-b border-white/5 p-8">
+                {/* Background Grid Pattern in visual zone */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.07)_1px,transparent_1px)] bg-[size:20px_20px]" />
+
+                {/* The Abstract Art */}
+                <div className="relative z-10 transition-transform duration-700 group-hover:scale-110">
+                    <AbstractArt variant={visual} />
+                </div>
+
+                {/* Hover Glow */}
+                <div className="absolute inset-0 bg-[#8B5CF6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+
+            {/* 2. BOTTOM: Content Zone (50% Height) */}
+            <div className="h-1/2 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <div className="flex justify-between items-start mb-6">
+                        <span className="text-xs font-mono text-[#8B5CF6] uppercase tracking-widest">
+                            {id}
+                        </span>
+                        <ArrowUpRight className="text-zinc-600 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" size={20} />
                     </div>
 
-                    <div className="flex flex-wrap gap-3 mt-auto">
-                        {service.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className={`text-xs uppercase tracking-widest font-medium px-4 py-2 border ${service.text === 'text-white' ? 'border-white/10 text-white/60' : 'border-black/5 text-zinc-500'}`}
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
+                    <h3 className="text-2xl font-display font-bold text-white uppercase tracking-tight mb-4 group-hover:text-[#8B5CF6] transition-colors">
+                        {title}
+                    </h3>
+
+                    <p className="text-zinc-500 text-sm leading-relaxed font-sans max-w-xs group-hover:text-zinc-400 transition-colors">
+                        {description}
+                    </p>
                 </div>
 
-                <div className="hidden lg:flex flex-1 relative items-center justify-center overflow-hidden h-full">
-                    <div className={`absolute inset-0 opacity-5 ${service.text === 'text-white' ? 'bg-white' : 'bg-black'}`} />
-                    <motion.div
-                        animate={{ rotate: [0, 5, 0], scale: [1, 1.05, 1] }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-                        className="relative z-10 p-20"
-                    >
-                        <service.icon size={260} strokeWidth={0.5} className={`${service.text === 'text-white' ? 'text-white/20' : 'text-zinc-900/10'}`} />
-                        <div className={`absolute top-0 right-0 w-20 h-20 border-t border-r ${service.text === 'text-white' ? 'border-white/20' : 'border-zinc-900/20'}`} />
-                        <div className={`absolute bottom-0 left-0 w-20 h-20 border-b border-l ${service.text === 'text-white' ? 'border-white/20' : 'border-zinc-900/20'}`} />
-                    </motion.div>
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mt-auto">
+                    {tags.map((tag: string) => (
+                        <span key={tag} className="px-2 py-1 border border-white/10 text-[10px] font-mono uppercase text-zinc-500 sharp-edge group-hover:border-[#8B5CF6]/30 group-hover:text-[#8B5CF6] transition-colors">
+                            {tag}
+                        </span>
+                    ))}
                 </div>
-
-                <div className={`absolute top-8 right-8 text-sm font-sans tracking-widest ${service.text === 'text-white' ? 'text-white/30' : 'text-zinc-400'}`}>
-                    0{index + 1} / 0{total}
-                </div>
-            </motion.div>
+            </div>
         </div>
     );
+}
+
+// --- CSS ABSTRACT ART GENERATOR ---
+function AbstractArt({ variant }: { variant: string }) {
+    switch (variant) {
+        case "web":
+            return (
+                <div className="relative w-32 h-24 border border-white/20 bg-zinc-900/50 backdrop-blur-sm sharp-edge flex flex-col group-hover:border-[#8B5CF6]/50 transition-colors">
+                    <div className="h-6 border-b border-white/10 flex items-center px-2 gap-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
+                    </div>
+                    <div className="p-2 space-y-1.5">
+                        <div className="w-3/4 h-1.5 bg-white/10 animate-pulse" />
+                        <div className="w-1/2 h-1.5 bg-white/10" />
+                        <div className="w-full h-1.5 bg-white/5" />
+                        <motion.div
+                            animate={{ y: [0, -5, 0] }}
+                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute -right-4 -bottom-4 w-12 h-12 border border-[#8B5CF6] bg-black/80 sharp-edge flex items-center justify-center"
+                        >
+                            <span className="text-[8px] font-mono text-[#8B5CF6]">JS</span>
+                        </motion.div>
+                    </div>
+                </div>
+            );
+        case "ai":
+            return (
+                <div className="relative w-24 h-24 flex items-center justify-center">
+                    <div className="w-12 h-12 bg-[#8B5CF6]/20 border border-[#8B5CF6] sharp-edge rotate-45 flex items-center justify-center relative z-10">
+                        <div className="w-4 h-4 bg-[#8B5CF6] sharp-edge" />
+                    </div>
+                    <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 border border-white/10 rounded-full"
+                    >
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1.5 w-3 h-3 bg-zinc-800 border border-white/20 sharp-edge" />
+                    </motion.div>
+                    <motion.div
+                        animate={{ rotate: -360 }}
+                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-4 border border-white/10 rounded-full"
+                    >
+                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1.5 w-2 h-2 bg-[#8B5CF6] sharp-edge" />
+                    </motion.div>
+                </div>
+            );
+        case "mobile":
+            return (
+                <div className="relative w-20 h-32 border border-white/20 bg-zinc-900/50 backdrop-blur-sm sharp-edge flex flex-col items-center py-2 group-hover:border-[#8B5CF6]/50 transition-colors">
+                    <div className="w-8 h-1 bg-white/10 rounded-full mb-4" />
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
+                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
+                        <div className="w-6 h-6 bg-[#8B5CF6]/20 sharp-edge" />
+                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
+                    </div>
+                </div>
+            );
+        case "design":
+            return (
+                <div className="relative w-24 h-24">
+                    <motion.div
+                        className="absolute top-0 left-0 w-16 h-16 border border-white/20 bg-transparent sharp-edge z-10"
+                        animate={{ x: [0, 10, 0], y: [0, 10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    <motion.div
+                        className="absolute bottom-0 right-0 w-16 h-16 border border-[#8B5CF6] bg-[#8B5CF6]/10 sharp-edge"
+                        animate={{ x: [0, -10, 0], y: [0, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-1 h-12 bg-white/20 rotate-45" />
+                        <div className="w-1 h-12 bg-white/20 -rotate-45" />
+                    </div>
+                </div>
+            );
+        case "cloud":
+            return (
+                <div className="relative w-32 h-20 flex items-center justify-center gap-4">
+                    <div className="w-16 h-16 border border-dashed border-white/20 sharp-edge flex items-center justify-center">
+                        <div className="w-8 h-8 bg-white/5 sharp-edge" />
+                    </div>
+                    <motion.div
+                        className="flex gap-1"
+                        animate={{ opacity: [0.2, 1, 0.2] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                    >
+                        <div className="w-1 h-1 bg-[#8B5CF6]" />
+                        <div className="w-1 h-1 bg-[#8B5CF6]" />
+                        <div className="w-1 h-1 bg-[#8B5CF6]" />
+                    </motion.div>
+                    <div className="w-12 h-12 border border-[#8B5CF6] bg-[#8B5CF6]/10 sharp-edge flex items-center justify-center">
+                        <div className="w-1 h-4 bg-[#8B5CF6]" />
+                        <div className="w-4 h-1 bg-[#8B5CF6] absolute" />
+                    </div>
+                </div>
+            );
+        default:
+            // SaaS / Dashboard
+            return (
+                <div className="w-32 h-20 border border-white/20 bg-zinc-900/50 sharp-edge p-2 grid grid-cols-3 gap-1">
+                    <div className="col-span-1 bg-[#8B5CF6]/20 h-full w-full" />
+                    <div className="col-span-2 space-y-1">
+                        <div className="w-full h-1/2 bg-white/5" />
+                        <div className="flex gap-1 h-1/2">
+                            <div className="w-1/2 bg-white/5" />
+                            <div className="w-1/2 bg-white/5" />
+                        </div>
+                    </div>
+                </div>
+            );
+    }
 }

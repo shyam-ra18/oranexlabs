@@ -1,34 +1,33 @@
 import { useState } from "react";
 import { GridSection } from "@/components/ui/GridContainer";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, ChevronDown, MoveRight } from "lucide-react";
+import { Check, ChevronDown, ArrowRight, AlertCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const services = [
-    "Web Development",
-    "UI/UX Design",
-    "Branding",
-    "SEO & Marketing",
-    "App Development",
-    "Consultation",
+    "Web Development", "Mobile Engineering", "AI Integrations",
+    "Product Design", "Cloud Infrastructure", "Strategic Consulting"
 ];
 
 const budgetRanges = [
-    "$1,000 - $3,000",
-    "$3,000 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000+",
+    "$1k - $3k",   // Core
+    "$3k - $6k",   // Growth
+    "$6k - $10k",  // Scale
+    "$10k+"        // Enterprise
 ];
 
 export function ContactSection() {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        selectedServices: [] as string[],
+        company: "",
         budget: "",
+        selectedServices: [] as string[],
+        message: "",
         termsAccepted: false,
     });
 
-    const [isServiceOpen, setIsServiceOpen] = useState(false);
+    const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [isBudgetOpen, setIsBudgetOpen] = useState(false);
 
     const toggleService = (service: string) => {
@@ -40,190 +39,273 @@ export function ContactSection() {
         }));
     };
 
+    const validateForm = () => {
+        const newErrors: { [key: string]: string } = {};
+
+        if (!formData.name.trim()) newErrors.name = "Name is required";
+
+        if (!formData.email.trim()) {
+            newErrors.email = "Email is required";
+        } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+            newErrors.email = "Invalid email format";
+        }
+
+        // Now validating Budget as well since it is marked required
+        if (!formData.budget) newErrors.budget = "Please select a range";
+
+        if (!formData.termsAccepted) newErrors.terms = "Required";
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = () => {
+        if (validateForm()) {
+            console.log("Form Submitted:", formData);
+            // Submit logic here
+        }
+    };
+
     return (
-        <GridSection className="relative overflow-hidden py-24 text-left" hasBorderBottom={true}>
-            <div className="mb-20 px-6">
-                <div className="inline-block px-3 py-1 border border-black/10 text-accent-orange text-xs font-medium tracking-widest uppercase mb-4">
-                    Get In Touch
+        <GridSection className="py-32 bg-[#050505] text-left relative overflow-hidden" hasBorderBottom={true} id="contact">
+
+            <div className="max-w-6xl mx-auto px-6 relative z-10">
+
+                {/* 1. Header */}
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                    <div className="space-y-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge">
+                            INITIATE_PROTOCOL
+                        </div>
+                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                            Start A <br />
+                            <span className="text-[#8B5CF6]">Project</span>
+                        </h2>
+                    </div>
+                    <div className="max-w-sm text-zinc-500 font-sans text-sm leading-relaxed text-right md:text-left">
+                        Fields marked with <span className="text-red-500">*</span> are required.<br />
+                        We typically respond within 24 operational hours.
+                    </div>
                 </div>
-                <h2 className="text-2xl md:text-5xl font-serif text-zinc-900">
-                    Ready to start your <br />
-                    <span className="italic text-zinc-400">next project?</span>
-                </h2>
-            </div>
 
-            <div className="max-w-4xl mx-auto px-6">
-                <div className="space-y-12 font-sans text-xl md:text-3xl leading-relaxed text-zinc-900">
-                    {/* Mad Libs Style Form */}
-                    <div className="relative flex flex-wrap items-center gap-x-3 gap-y-6">
-                        <span className="whitespace-nowrap">Hey, my name is</span>
-                        <div className="relative border-b border-zinc-300 min-w-[200px] flex-1 md:flex-none h-auto">
-                            <input
-                                type="text"
-                                placeholder="Type Here"
-                                value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                className="w-full bg-transparent pb-1 outline-none placeholder:text-zinc-300 text-accent-orange focus:border-accent-orange transition-colors"
-                            />
-                        </div>
-                        <span className="whitespace-nowrap">and I'm looking for</span>
+                {/* 2. The Grid Form System */}
+                <div className="w-full border-t border-l border-white/10">
+                    <div className="grid grid-cols-1 md:grid-cols-2">
 
-                        {/* Custom Animated Multiselect - SHARP CORNERS */}
-                        <div className="relative min-w-[200px] flex-1 md:flex-none">
-                            <button
-                                onClick={() => setIsServiceOpen(!isServiceOpen)}
-                                className="flex items-center justify-between w-full border-b border-zinc-300 pb-1 hover:border-accent-orange transition-colors duration-300 group"
-                            >
-                                <span className={formData.selectedServices.length === 0 ? "text-zinc-300" : "text-accent-orange"}>
-                                    {formData.selectedServices.length === 0
-                                        ? "Select Services"
-                                        : `${formData.selectedServices.length} Service${formData.selectedServices.length > 1 ? 's' : ''}`}
-                                </span>
-                                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isServiceOpen ? 'rotate-180 text-accent-orange' : 'text-zinc-400 group-hover:text-accent-orange'}`} />
-                            </button>
+                        {/* Cell: Name (REQUIRED) */}
+                        <GridInput
+                            label="01. Name"
+                            required={true}
+                            placeholder="John Doe"
+                            value={formData.name}
+                            error={errors.name}
+                            onChange={(e: any) => {
+                                setFormData({ ...formData, name: e.target.value });
+                                if (errors.name) setErrors({ ...errors, name: "" });
+                            }}
+                        />
 
-                            <AnimatePresence>
-                                {isServiceOpen && (
-                                    <>
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            onClick={() => setIsServiceOpen(false)}
-                                            className="fixed inset-0 z-40 bg-transparent"
-                                        />
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 10 }}
-                                            className="absolute left-0 top-full mt-2 w-72 bg-white border border-zinc-200 rounded-none shadow-2xl z-50 overflow-hidden"
-                                        >
-                                            <div className="p-1 space-y-0">
-                                                {services.map((service) => (
-                                                    <button
-                                                        key={service}
-                                                        onClick={() => toggleService(service)}
-                                                        className="flex items-center justify-between w-full p-4 text-sm hover:bg-zinc-50 transition-colors text-left border-b border-zinc-100 last:border-0"
-                                                    >
-                                                        <span className={formData.selectedServices.includes(service) ? "text-accent-orange font-medium" : "text-zinc-600"}>
-                                                            {service}
-                                                        </span>
-                                                        {formData.selectedServices.includes(service) && (
-                                                            <Check className="w-4 h-4 text-accent-orange" />
-                                                        )}
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </motion.div>
-                                    </>
+                        {/* Cell: Email (REQUIRED) */}
+                        <GridInput
+                            label="02. Contact Email"
+                            required={true}
+                            placeholder="john@company.com"
+                            type="email"
+                            value={formData.email}
+                            error={errors.email}
+                            onChange={(e: any) => {
+                                setFormData({ ...formData, email: e.target.value });
+                                if (errors.email) setErrors({ ...errors, email: "" });
+                            }}
+                        />
+
+                        {/* Cell: Company (OPTIONAL) */}
+                        <GridInput
+                            label="03. Company / Organization"
+                            placeholder="Oranex Labs"
+                            value={formData.company}
+                            onChange={(e: any) => setFormData({ ...formData, company: e.target.value })}
+                        />
+
+                        {/* Cell: Budget (REQUIRED) */}
+                        <div className={cn(
+                            "relative border-b border-r border-white/10 p-8 md:p-10 group transition-colors h-40 flex flex-col justify-between",
+                            errors.budget ? "bg-red-500/[0.02]" : "hover:bg-white/[0.02]"
+                        )}>
+                            <div className="flex justify-between items-center mb-4">
+                                <label className={cn(
+                                    "text-xs font-mono uppercase tracking-widest block",
+                                    errors.budget ? "text-red-500" : "text-[#8B5CF6]"
+                                )}>
+                                    04. Monthly Budget <span className="text-red-500">*</span>
+                                </label>
+                                {errors.budget && (
+                                    <div className="flex items-center gap-2 text-red-500 text-[10px] font-mono uppercase tracking-wider">
+                                        <AlertCircle size={12} /> Required
+                                    </div>
                                 )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                            </div>
 
-                    <div className="relative flex flex-wrap items-center gap-x-3 gap-y-6">
-                        <span className="whitespace-nowrap">Get in touch with me at</span>
-                        <div className="relative border-b border-zinc-300 min-w-[250px] flex-1">
-                            <input
-                                type="email"
-                                placeholder="Your Email ID Here"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                className="w-full bg-transparent pb-1 outline-none placeholder:text-zinc-300 text-accent-orange focus:border-accent-orange transition-colors"
-                            />
-                        </div>
-                        <span className="hidden md:inline">!</span>
-                    </div>
-
-                    <div className="relative flex flex-wrap items-center gap-x-3 gap-y-6">
-                        <span className="whitespace-nowrap">My budget is around</span>
-
-                        {/* Custom Dropdown for Budget - SHARP CORNERS */}
-                        <div className="relative min-w-[200px] flex-1 md:flex-none">
                             <button
                                 onClick={() => setIsBudgetOpen(!isBudgetOpen)}
-                                className="flex items-center justify-between w-full border-b border-zinc-300 pb-1 hover:border-accent-orange transition-colors duration-300 group"
+                                className="w-full flex items-center justify-between text-2xl md:text-3xl font-display text-white focus:outline-none uppercase"
                             >
-                                <span className={formData.budget === "" ? "text-zinc-300" : "text-accent-orange font-medium"}>
-                                    {formData.budget === "" ? "Select Range" : formData.budget}
+                                <span className={formData.budget ? "text-white" : "text-zinc-700"}>
+                                    {formData.budget || "Select Range"}
                                 </span>
-                                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isBudgetOpen ? 'rotate-180 text-accent-orange' : 'text-zinc-400 group-hover:text-accent-orange'}`} />
+                                <ChevronDown className={cn("text-zinc-600 transition-transform duration-300", isBudgetOpen && "rotate-180 text-[#8B5CF6]")} />
                             </button>
 
                             <AnimatePresence>
                                 {isBudgetOpen && (
-                                    <>
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            onClick={() => setIsBudgetOpen(false)}
-                                            className="fixed inset-0 z-40 bg-transparent"
-                                        />
-                                        <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 10 }}
-                                            className="absolute left-0 top-full mt-2 w-64 bg-white border border-zinc-200 rounded-none shadow-2xl z-50 overflow-hidden"
-                                        >
-                                            <div className="p-1 space-y-0">
-                                                {budgetRanges.map((range) => (
-                                                    <button
-                                                        key={range}
-                                                        onClick={() => {
-                                                            setFormData({ ...formData, budget: range });
-                                                            setIsBudgetOpen(false);
-                                                        }}
-                                                        className="w-full p-4 text-sm text-left hover:bg-zinc-50 transition-colors border-b border-zinc-100 last:border-0"
-                                                    >
-                                                        <span className={formData.budget === range ? "text-accent-orange font-medium" : "text-zinc-600"}>
-                                                            {range}
-                                                        </span>
-                                                    </button>
-                                                ))}
-                                            </div>
-                                        </motion.div>
-                                    </>
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: 10 }}
+                                        className="absolute top-full left-0 w-full bg-[#0A0A0A] border border-white/10 z-50 shadow-2xl sharp-edge"
+                                    >
+                                        {budgetRanges.map((range) => (
+                                            <button
+                                                key={range}
+                                                onClick={() => {
+                                                    setFormData({ ...formData, budget: range });
+                                                    if (errors.budget) setErrors({ ...errors, budget: "" });
+                                                    setIsBudgetOpen(false);
+                                                }}
+                                                className="w-full text-left px-8 py-4 text-sm font-mono text-zinc-400 hover:text-white hover:bg-[#8B5CF6]/10 border-b border-white/5 last:border-0 transition-colors uppercase tracking-wider"
+                                            >
+                                                {range}
+                                            </button>
+                                        ))}
+                                    </motion.div>
                                 )}
                             </AnimatePresence>
                         </div>
+
+                        {/* Cell: Services (OPTIONAL) */}
+                        <div className="col-span-1 md:col-span-2 border-b border-r border-white/10 p-8 md:p-10">
+                            <label className="text-xs font-mono text-[#8B5CF6] uppercase tracking-widest mb-8 block">
+                                05. Required Capabilities
+                            </label>
+                            <div className="flex flex-wrap gap-4">
+                                {services.map((service) => (
+                                    <button
+                                        key={service}
+                                        onClick={() => toggleService(service)}
+                                        className={cn(
+                                            "px-6 py-3 border text-sm font-mono uppercase tracking-wide sharp-edge transition-all duration-300",
+                                            formData.selectedServices.includes(service)
+                                                ? "bg-[#8B5CF6] border-[#8B5CF6] text-white"
+                                                : "bg-transparent border-white/10 text-zinc-500 hover:border-white/30 hover:text-white"
+                                        )}
+                                    >
+                                        {service}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Cell: Message (OPTIONAL) */}
+                        <div className="col-span-1 md:col-span-2 border-b border-r border-white/10 p-8 md:p-10 hover:bg-white/[0.02] transition-colors">
+                            <label className="text-xs font-mono text-[#8B5CF6] uppercase tracking-widest mb-4 block">
+                                06. Project Details
+                            </label>
+                            <textarea
+                                placeholder="Tell us about the project scope, technical requirements, and timeline..."
+                                value={formData.message}
+                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                className="w-full bg-transparent border-none outline-none text-xl md:text-2xl text-white placeholder-zinc-700 min-h-[120px] resize-none font-display uppercase leading-relaxed focus:placeholder-white/20 transition-colors"
+                            />
+                        </div>
+
                     </div>
                 </div>
 
-                {/* Footer actions - SHARP CORNERS */}
-                <div className="mt-24 space-y-10">
-                    <label className="flex items-start gap-4 cursor-pointer group select-none">
-                        <div className="relative mt-1 w-5 h-5 border border-zinc-300 rounded-none overflow-hidden flex-shrink-0">
+                {/* 3. Footer Actions (Terms REQUIRED) */}
+                <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-8">
+
+                    <div className="flex flex-col gap-2">
+                        <label className="flex items-center gap-4 cursor-pointer group select-none">
+                            <div className={cn(
+                                "w-5 h-5 border sharp-edge flex items-center justify-center transition-colors duration-300",
+                                formData.termsAccepted
+                                    ? "bg-[#8B5CF6] border-[#8B5CF6]"
+                                    : errors.terms
+                                        ? "border-red-500"
+                                        : "border-zinc-700 group-hover:border-white"
+                            )}>
+                                {formData.termsAccepted && <Check size={14} className="text-white" strokeWidth={4} />}
+                            </div>
                             <input
                                 type="checkbox"
-                                className="peer absolute inset-0 opacity-0 cursor-pointer"
+                                className="hidden"
                                 checked={formData.termsAccepted}
-                                onChange={(e) => setFormData({ ...formData, termsAccepted: e.target.checked })}
+                                onChange={(e) => {
+                                    setFormData({ ...formData, termsAccepted: e.target.checked });
+                                    if (errors.terms) setErrors({ ...errors, terms: "" });
+                                }}
                             />
-                            <div className="absolute inset-0 bg-accent-orange opacity-0 peer-checked:opacity-100 transition-opacity flex items-center justify-center">
-                                <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                            </div>
-                        </div>
-                        <span className="text-zinc-500 text-sm md:text-base font-sans leading-relaxed">
-                            I hereby accept all terms and conditions.
-                        </span>
-                    </label>
+                            <span className={cn(
+                                "text-xs font-mono uppercase tracking-widest transition-colors",
+                                errors.terms ? "text-red-500" : "text-zinc-500 group-hover:text-white"
+                            )}>
+                                I accept the data processing terms <span className="text-red-500">*</span>
+                            </span>
+                        </label>
+                    </div>
 
-                    <button className="group relative flex items-center gap-8 bg-zinc-900 text-white px-10 py-5 rounded-none hover:bg-accent-orange transition-all duration-500 overflow-hidden">
-                        <span className="font-display font-medium tracking-tight text-xl relative z-10 transition-colors duration-500">
-                            Send Enquiry
+                    <button
+                        onClick={handleSubmit}
+                        className="group relative px-12 py-5 bg-white text-black font-bold uppercase text-xs tracking-[0.2em] sharp-edge overflow-hidden transition-all hover:shadow-[0_0_30px_-5px_#8B5CF6]"
+                    >
+                        <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+                            Initialize Request <ArrowRight size={16} />
                         </span>
-                        <div className="relative z-10 p-2 bg-white/10 rounded-none group-hover:bg-white/20 transition-colors">
-                            <MoveRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                        {/* Background color transition effect */}
-                        <div className="absolute inset-0 bg-accent-orange translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out -z-1" />
+                        <div className="absolute inset-0 bg-[#8B5CF6] transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                     </button>
+
                 </div>
             </div>
-
-            {/* Subtle Grid Background indicator or glow */}
-            <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-orange-100/20 blur-[130px] rounded-full -z-10" />
         </GridSection>
     );
+}
+
+// --- SUB-COMPONENTS ---
+
+function GridInput({ label, placeholder, value, onChange, type = "text", error, required = false }: any) {
+    return (
+        <div className={cn(
+            "border-b border-r p-8 md:p-10 transition-colors h-40 flex flex-col justify-between group focus-within:bg-white/[0.04]",
+            error ? "border-red-500/50 bg-red-500/[0.02]" : "border-white/10 hover:bg-white/[0.02]"
+        )}>
+            <div className="flex justify-between items-center mb-2">
+                <label className={cn(
+                    "text-xs font-mono uppercase tracking-widest transition-colors",
+                    error ? "text-red-500" : "text-[#8B5CF6] group-focus-within:text-white"
+                )}>
+                    {label} {required && <span className="text-red-500">*</span>}
+                </label>
+                {error && (
+                    <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className="flex items-center gap-2 text-red-500 text-[10px] font-mono uppercase tracking-wider"
+                    >
+                        <AlertCircle size={12} /> {error}
+                    </motion.div>
+                )}
+            </div>
+
+            <input
+                type={type}
+                value={value}
+                onChange={onChange}
+                placeholder={placeholder}
+                className={cn(
+                    "w-full bg-transparent border-none outline-none text-2xl md:text-3xl font-display uppercase transition-colors",
+                    error ? "text-red-500 placeholder-red-500/30" : "text-white placeholder-zinc-700"
+                )}
+            />
+        </div>
+    )
 }

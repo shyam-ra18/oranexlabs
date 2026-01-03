@@ -1,28 +1,32 @@
-import { SEO } from "@/components/SEO";
-import { Navbar } from "@/components/Navbar";
-import { HeroSection } from "@/components/HeroSection";
 import { ClientLogos } from "@/components/ClientLogos";
-import { ServicesSection } from "@/components/ServicesSection";
-import { WorkSection } from "@/components/WorkSection";
-import { TestimonialsSection } from "@/components/TestimonialsSection";
-import { FAQSection } from "@/components/FAQSection";
 import { ContactSection } from "@/components/ContactSection";
+import { FAQSection } from "@/components/FAQSection";
 import { Footer } from "@/components/Footer";
-import { GridContainer } from "@/components/ui/GridContainer";
-
+import { HeroSection } from "@/components/HeroSection";
+import { Navbar } from "@/components/Navbar";
+import { SEO } from "@/components/SEO";
+import { ServicesSection } from "@/components/ServicesSection";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { TestimonialsSection } from "@/components/TestimonialsSection";
+import { GridContainer } from "@/components/ui/GridContainer";
+import { WorkSection } from "@/components/WorkSection";
+import { PricingSection } from "@/components/PricingSection";
+import { ProcessSection } from "@/components/ProcessSection";
+
+// Import the noise component (or define it in this file)
 
 function App() {
   return (
     <>
       <SEO />
       <SmoothScroll />
-      <div className="min-h-screen bg-background text-text-primary selection:bg-accent-orange/30 selection:text-white">
+
+      <div className="min-h-screen bg-background text-white selection:bg-vibranium/30 selection:text-white">
         <Navbar />
 
         {/* Main Grid Wrapper providing the continuous lines */}
         <GridContainer isMainContainer={true} className="border-t-0">
-          <main>
+          <main className="relative z-10">
             <HeroSection />
 
             <ClientLogos />
@@ -31,12 +35,20 @@ function App() {
               <ServicesSection />
             </div>
 
+            <div id="process">
+              <ProcessSection />
+            </div>
+
             <div id="work">
               <WorkSection />
             </div>
 
             <div id="testimonials">
               <TestimonialsSection />
+            </div>
+
+            <div id="pricing">
+              <PricingSection />
             </div>
 
             <div id="faq">

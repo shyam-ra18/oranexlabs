@@ -1,17 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 250 250 250;
-    /* #FAFAFA */
-    --foreground: 24 24 27;
-    /* #18181B */
+    --background: 5 5 5;
+    --accent: 139 92 246;
   }
 
   body {
-    @apply bg-background text-text-primary font-sans antialiased overflow-x-hidden selection:bg-accent-orange/20;
+    @apply bg-background text-text-primary font-sans antialiased overflow-x-hidden selection:bg-accent-purple/30;
   }
 
   h1,
@@ -20,124 +20,77 @@
   h4,
   h5,
   h6 {
-    @apply font-display;
+    @apply font-display tracking-tight uppercase;
   }
 }
 
 @layer utilities {
-  .grid-bg {
-    background-size: 40px 40px;
-    background-image:
-      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  .glow-purple {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.2);
   }
 
-  .font-display {
-    font-family: 'Clash Display', sans-serif;
+  .glow-purple-strong {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+  }
+
+  .sharp-edge {
+    border-radius: 0px !important;
+  }
+
+  .glass-sharp {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 sharp-edge;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar for Cyber-Noir */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FAFAFA;
+  background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D4D4D8;
-  border-radius: 3px;
+  background: #27272A;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A1A1AA;
+  background: #8B5CF6;
 }
 
-/* Satoshi Font Family (Body) */
+/* Font Faces */
 @font-face {
   font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2'),
-    url('/fonts/Satoshi-Variable.woff') format('woff'),
-    url('/fonts/Satoshi-Variable.ttf') format('truetype');
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
   font-weight: 300 900;
   font-display: swap;
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-VariableItalic.woff2') format('woff2');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: italic;
-}
-
-/* Specific weights for better browser compatibility */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
-}
-
-/* Clash Display Font Family (Headings) */
 @font-face {
   font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2'),
-    url('/fonts/ClashDisplay-Variable.woff') format('woff'),
-    url('/fonts/ClashDisplay-Variable.ttf') format('truetype');
+  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
   font-weight: 200 700;
   font-display: swap;
   font-style: normal;
 }
 
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
+/* This creates the top/bottom fade effect for the scrolling container */
+.mask-gradient-vertical {
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
 }
 
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
+/* Sharp edge utility if not already present */
+.sharp-edge {
+  border-radius: 0px !important;
 }

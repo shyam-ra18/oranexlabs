@@ -7,27 +7,30 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#FAFAFA',    // Premium Off-White
-        'grid-line': '#FF5A24', // Subtle dark grid lines
-        'accent-orange': '#FF5A24', // Oranex Orange
-        'surface': '#FFFFFF',     // White cards
-        'surface-highlight': '#F4F4F5', // Zinc-100 hover
-        'text-primary': '#18181B', // Zinc-950
-        'text-secondary': '#71717A', // Zinc-500
-        // Keeping some existing colors just in case
-        'primary': '#FF5A24',
+        background: '#050505',    // Obsidian Black
+        'accent-purple': '#8B5CF6', // Vibranium Purple
+        'vibranium': '#8B5CF6',
+        'true-black': '#000000',
+        'surface': '#0A0A0A',     // Deep Zinc
+        'text-primary': '#FFFFFF',
+        'text-secondary': '#A1A1AA', // Zinc-400
+        'brand-purple': '#8B5CF6',
+        'obsidian': '#050505',
+      },
+      borderRadius: {
+        'none': '0px',
       },
       fontFamily: {
-        sans: ['Satoshi', 'system-ui', 'sans-serif'],
-        display: ['Clash Display', 'sans-serif'],
-        serif: ['Clash Display', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['"Clash Display"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'grid-white': 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
-        'infinite-scroll': 'infinite-scroll 80s linear infinite',
+        'infinite-scroll': 'infinite-scroll 40s linear infinite',
       },
       keyframes: {
         float: {
