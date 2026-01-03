@@ -38,7 +38,7 @@ export function ProcessSection() {
                         <div className="text-xs font-mono text-vibranium uppercase tracking-widest">
                             Execution_Framework_v4.0
                         </div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase  leading-[0.9]">
                             Our <br />
                             <span className="text-vibranium">Protocol</span>
                         </h2>
@@ -69,7 +69,7 @@ export function ProcessSection() {
                                 </div>
                             </div>
 
-                            <h3 className="text-xl font-display font-bold text-white mb-4 uppercase tracking-tight group-hover:text-vibranium transition-colors">
+                            <h3 className="text-xl font-display font-bold text-white mb-4 uppercase  group-hover:text-vibranium transition-colors">
                                 {step.title}
                             </h3>
                             <p className="text-zinc-500 text-sm font-sans leading-relaxed group-hover:text-zinc-400 transition-colors">

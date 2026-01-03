@@ -89,7 +89,7 @@ export function WorkSection() {
                     <div className="text-vibranium text-xs font-mono uppercase tracking-[0.25em] mb-4">
                         Selected_Works
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase tracking-tight">
+                    <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase ">
                         Digital <span className="text-vibranium">Archive</span>
                     </h2>
                 </div>
@@ -160,7 +160,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
                             {project.year}
                         </span>
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-display font-bold text-white uppercase tracking-tight mb-2">
+                    <h3 className="text-3xl md:text-5xl font-display font-bold text-white uppercase  mb-2">
                         {project.title}
                     </h3>
                 </div>

@@ -17,7 +17,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-tighter leading-[0.95]"
+                    className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-wider leading-[0.95]"
                 >
                     WEB. MOBILE. <br />
                     <span className="text-vibranium">

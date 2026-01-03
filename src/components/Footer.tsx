@@ -50,7 +50,7 @@ export function Footer() {
                             <div className="w-8 h-8 bg-vibranium sharp-edge flex items-center justify-center">
                                 <span className="text-white font-bold text-lg">O</span>
                             </div>
-                            <h2 className="text-2xl font-display font-bold text-white tracking-tight uppercase group-hover:text-vibranium transition-colors">
+                            <h2 className="text-2xl font-display font-bold text-white  uppercase group-hover:text-vibranium transition-colors">
                                 Oranex Labs
                             </h2>
                         </div>

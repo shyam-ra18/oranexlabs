@@ -57,7 +57,7 @@ function LogoCell({ name }: { name: string }) {
             <div className="absolute -bottom-[1.5px] -right-[1.5px] w-[2px] h-[10px] bg-zinc-800 group-hover:bg-vibranium group-hover:shadow-[0_0_8px_rgba(139,92,246,0.5)] transition-all duration-300 z-10" />
 
             {/* --- The Logo/Text --- */}
-            <span className="text-xl md:text-2xl font-display font-bold text-zinc-600 uppercase tracking-tighter group-hover:text-white transition-colors duration-300 cursor-default">
+            <span className="text-xl md:text-2xl font-display font-bold text-zinc-600 uppercase  group-hover:text-white transition-colors duration-300 cursor-default">
                 {name}
             </span>
         </div>

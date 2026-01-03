@@ -63,7 +63,7 @@ export function PricingSection() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge mb-6">
                     ENGINEERING_SUBSCRIPTION
                 </div>
-                <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase tracking-tight leading-none mb-6">
+                <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase  leading-none mb-6">
                     Engineering {" "} as a <br />
                     <span className="text-vibranium">
                         Service
@@ -139,7 +139,7 @@ export function PricingSection() {
 
                             {/* Header */}
                             <div className="mb-8 text-center">
-                                <h3 className="text-2xl font-display font-bold text-white mb-2 uppercase tracking-tight">
+                                <h3 className="text-2xl font-display font-bold text-white mb-2 uppercase ">
                                     {plan.name}
                                 </h3>
                                 <p className="text-zinc-500 text-xs font-sans leading-relaxed h-8">

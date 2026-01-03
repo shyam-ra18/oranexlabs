@@ -38,7 +38,7 @@ export function FAQSection() {
                     {/* --- LEFT COLUMN: Sticky Header (Cols 1-5) --- */}
                     <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-white/10 relative">
                         <div className="lg:sticky lg:top-32 space-y-8">
-                            <h2 className="text-5xl md:text-6xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                            <h2 className="text-5xl md:text-6xl font-display font-bold text-white uppercase  leading-[0.9]">
                                 Process <br />
                                 <span className="text-vibranium">Queries</span>
                             </h2>
@@ -93,7 +93,7 @@ function FAQItem({ question, answer, isOpen, onClick, index }: { question: strin
 
                     {/* Question Title */}
                     <span className={cn(
-                        "text-xl md:text-2xl font-display font-bold uppercase tracking-tight transition-colors duration-300",
+                        "text-xl md:text-2xl font-display font-bold uppercase  transition-colors duration-300",
                         isOpen ? "text-white" : "text-zinc-400 group-hover:text-white"
                     )}>
                         {question}

@@ -77,7 +77,7 @@ export function ContactSection() {
                         <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge">
                             INITIATE_PROTOCOL
                         </div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase  leading-[0.9]">
                             Start A <br />
                             <span className="text-[#8B5CF6]">Project</span>
                         </h2>

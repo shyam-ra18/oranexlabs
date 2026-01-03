@@ -103,7 +103,7 @@ export function ServicesSection() {
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 px-6 md:px-0">
                 <div className="space-y-6">
-                    <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                    <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
                         Our <br />
                         <span className="text-[#8B5CF6]">
                             Expertise
@@ -161,7 +161,7 @@ function ServiceCard({ id, title, description, tags, visual }: any) {
                         <ArrowUpRight className="text-zinc-600 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" size={20} />
                     </div>
 
-                    <h3 className="text-2xl font-display font-bold text-white uppercase tracking-tight mb-4 group-hover:text-[#8B5CF6] transition-colors">
+                    <h3 className="text-2xl font-display font-bold text-white uppercase  mb-4 group-hover:text-[#8B5CF6] transition-colors">
                         {title}
                     </h3>
 
