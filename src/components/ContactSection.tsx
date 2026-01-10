@@ -72,18 +72,18 @@ export function ContactSection() {
             <div className="max-w-6xl mx-auto px-6 relative z-10">
 
                 {/* 1. Header */}
-                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 md:mb-20 gap-8 text-center md:text-left">
                     <div className="space-y-6">
                         <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge">
                             INITIATE_PROTOCOL
                         </div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase  leading-[0.9]">
-                            Start A <br />
+                        <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
+                            Start A <br className="hidden md:block" />
                             <span className="text-[#8B5CF6]">Project</span>
                         </h2>
                     </div>
-                    <div className="max-w-sm text-zinc-500 font-sans text-sm leading-relaxed text-right md:text-left">
-                        Fields marked with <span className="text-red-500">*</span> are required.<br />
+                    <div className="max-w-sm text-zinc-500 font-sans text-sm md:text-base leading-relaxed text-center md:text-right">
+                        Fields marked with <span className="text-red-500">*</span> are required.<br className="hidden md:block" />
                         We typically respond within 24 operational hours.
                     </div>
                 </div>
@@ -148,12 +148,12 @@ export function ContactSection() {
 
                             <button
                                 onClick={() => setIsBudgetOpen(!isBudgetOpen)}
-                                className="w-full flex items-center justify-between text-2xl md:text-3xl font-display text-white focus:outline-none uppercase"
+                                className="w-full flex items-center justify-between text-xl md:text-3xl font-display text-white focus:outline-none uppercase text-left"
                             >
                                 <span className={formData.budget ? "text-white" : "text-zinc-700"}>
                                     {formData.budget || "Select Range"}
                                 </span>
-                                <ChevronDown className={cn("text-zinc-600 transition-transform duration-300", isBudgetOpen && "rotate-180 text-[#8B5CF6]")} />
+                                <ChevronDown className={cn("text-zinc-600 transition-transform duration-300", isBudgetOpen && "rotate-180 text-[#8B5CF6]")} size={formData.budget ? 20 : 16} />
                             </button>
 
                             <AnimatePresence>
@@ -214,7 +214,7 @@ export function ContactSection() {
                                 placeholder="Tell us about the project scope, technical requirements, and timeline..."
                                 value={formData.message}
                                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                className="w-full bg-transparent border-none outline-none text-xl md:text-2xl text-white placeholder-zinc-700 min-h-[120px] resize-none font-display uppercase leading-relaxed focus:placeholder-white/20 transition-colors"
+                                className="w-full bg-transparent border-none outline-none text-lg md:text-2xl text-white placeholder-zinc-700 min-h-[120px] resize-none font-display uppercase leading-relaxed focus:placeholder-white/20 transition-colors"
                             />
                         </div>
 
@@ -302,7 +302,7 @@ function GridInput({ label, placeholder, value, onChange, type = "text", error, 
                 onChange={onChange}
                 placeholder={placeholder}
                 className={cn(
-                    "w-full bg-transparent border-none outline-none text-2xl md:text-3xl font-display uppercase transition-colors",
+                    "w-full bg-transparent border-none outline-none text-xl md:text-3xl font-display uppercase transition-colors",
                     error ? "text-red-500 placeholder-red-500/30" : "text-white placeholder-zinc-700"
                 )}
             />

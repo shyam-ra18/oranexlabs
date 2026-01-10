@@ -14,28 +14,28 @@ export function TestimonialsSection() {
         <section className="relative w-full py-32 bg-background border-b border-white/10 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-20">
 
-                {/* --- LEFT: Sticky Content --- */}
-                <div className="relative h-full flex flex-col justify-center">
-                    <div className="sticky top-32 space-y-8">
-                        <div className="text-9xl text-vibranium font-bold font-display leading-none -ml-4 select-none">“</div>
-                        <h2 className="text-5xl md:text-6xl font-display font-bold text-white leading-tight -mt-12">
-                            Built a workflow that <br />
-                            used to take <br />
-                            <span className="text-vibranium">3 services</span> and <br />
+                {/* --- LEFT: Content --- */}
+                <div className="relative h-full flex flex-col justify-center text-center lg:text-left items-center lg:items-start">
+                    <div className="lg:sticky lg:top-32 space-y-6 md:space-y-8">
+                        <div className="text-6xl md:text-9xl text-vibranium font-bold font-display leading-none lg:-ml-4 select-none">“</div>
+                        <h2 className="text-3xl md:text-6xl font-display font-bold text-white leading-[1.1] md:leading-tight -mt-6 md:-mt-12">
+                            Built a workflow that <br className="hidden md:block" />
+                            used to take <br className="hidden md:block" />
+                            <span className="text-vibranium">3 services</span> and <br className="hidden md:block" />
                             <span className="text-vibranium">2 meetings.</span>
                         </h2>
-                        <p className="text-zinc-400 text-lg max-w-md border-l border-white/20 pl-6">
+                        <p className="text-zinc-400 text-base md:text-lg max-w-md border-l-2 lg:border-l border-vibranium lg:border-white/20 pl-6 text-left">
                             See why the founders of the world's leading AI platforms trust us to build their internal tooling.
                         </p>
 
-                        <button className="group flex items-center gap-3 text-white text-sm font-mono uppercase tracking-widest hover:text-vibranium transition-colors">
+                        <button className="group flex items-center gap-3 text-white text-xs font-mono uppercase tracking-widest hover:text-vibranium transition-colors mx-auto lg:mx-0">
                             Read Case Studies <span className="group-hover:translate-x-1 transition-transform">→</span>
                         </button>
                     </div>
                 </div>
 
                 {/* --- RIGHT: Vertical Marquee Grid --- */}
-                <div className="relative h-[800px] overflow-hidden mask-gradient-vertical">
+                <div className="relative h-[600px] md:h-[800px] overflow-hidden mask-gradient-vertical">
                     {/* Grid Background */}
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
 

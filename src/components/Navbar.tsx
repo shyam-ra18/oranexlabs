@@ -38,26 +38,30 @@ export function Navbar() {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="fixed top-4 md:top-6 inset-x-0 mx-auto max-w-5xl z-50 px-4 md:px-0"
+                className="fixed top-4 md:top-6 inset-x-0 mx-auto max-w-7xl z-50 px-4 md:px-8"
             >
-                <div className="relative w-full bg-background/90 backdrop-blur-xl border border-white/10 flex items-center justify-between px-6 py-4 shadow-2xl sharp-edge">
+                <div className="relative w-full bg-background/90 backdrop-blur-xl border border-white/10 flex items-center justify-between px-6 md:px-10 py-4 shadow-2xl sharp-edge">
 
-                    {/* 1. Brand Logo */}
+                    {/* 1. Logo Section */}
                     <a
                         href="#"
                         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="flex items-center gap-3 group relative z-50"
+                        className="flex items-center gap-4 group relative z-50 flex-1 md:flex-none"
                     >
-                        <div className="w-8 h-8 bg-vibranium flex items-center justify-center sharp-edge group-hover:bg-white transition-colors duration-300">
-                            <span className="font-bold text-black">O</span>
+                        <div className="relative flex items-center justify-start overflow-hidden">
+                            <img
+                                src="/oranex-logo.svg"
+                                alt="Oranex Logo"
+                                className="w-[45px] h-auto"
+                            />
                         </div>
-                        <span className="text-sm font-display font-bold tracking-[0.15em] text-white">
+                        {/* <span className="text-white text-sm font-display font-bold tracking-[0.2em] hidden md:block">
                             ORANEX<span className="text-vibranium">.LABS</span>
-                        </span>
+                        </span> */}
                     </a>
 
                     {/* 2. Desktop Navigation */}
-                    <div className="hidden md:flex items-center gap-10">
+                    <div className="hidden lg:flex items-center gap-12">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
@@ -72,21 +76,21 @@ export function Navbar() {
                     </div>
 
                     {/* 3. Actions */}
-                    <div className="flex items-center gap-4 relative z-50">
+                    <div className="flex items-center gap-6 relative z-50">
                         <a
                             href="#contact"
                             onClick={(e) => handleScroll(e, "#contact")}
-                            className="hidden md:block px-6 py-2.5 bg-white text-black font-bold text-[10px] uppercase tracking-[0.2em] sharp-edge hover:bg-vibranium hover:text-white transition-all duration-300"
+                            className="hidden lg:block px-8 py-3 bg-white text-black font-bold text-[10px] uppercase tracking-[0.2em] sharp-edge hover:bg-vibranium hover:text-white transition-all duration-300"
                         >
                             Start Project
                         </a>
 
-                        {/* Mobile Menu Button */}
+                        {/* Mobile Menu Button - Shown on md and below (until lg:flex kicks in) */}
                         <button
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="md:hidden text-white hover:text-vibranium transition-colors p-2"
+                            className="lg:hidden text-white hover:text-vibranium transition-colors p-2"
                         >
-                            {isMobileMenuOpen ? <X /> : <Menu />}
+                            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
                         </button>
                     </div>
 
@@ -111,7 +115,7 @@ export function Navbar() {
                         <div className="flex flex-col w-full h-full overflow-y-auto">
 
                             {/* Navigation List */}
-                            <div className="flex flex-col w-full px-6">
+                            <div className="flex flex-col w-full px-6 pt-8">
                                 {navLinks.map((link, i) => (
                                     <motion.div
                                         key={link.name}
@@ -155,8 +159,8 @@ export function Navbar() {
                                     <span className="text-sm font-mono text-vibranium uppercase tracking-[0.2em] group-hover:text-white transition-colors">
                                         Initiate Request
                                     </span>
-                                    <div className="w-8 h-8 flex items-center justify-center bg-vibranium text-black sharp-edge group-hover:bg-white transition-colors">
-                                        <ArrowRight size={16} />
+                                    <div className="w-10 h-10 flex items-center justify-center bg-vibranium text-black sharp-edge group-hover:bg-white transition-colors">
+                                        <ArrowRight size={18} />
                                     </div>
                                 </a>
                                 {/* Gradient Line for Bottom Action */}

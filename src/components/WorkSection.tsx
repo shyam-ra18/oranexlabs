@@ -84,12 +84,12 @@ export function WorkSection() {
         <section className="relative w-full bg-background border-b border-white/10 py-32 overflow-hidden" id="work">
 
             {/* Header & Controls */}
-            <div className="max-w-[1440px] mx-auto px-6 mb-16 flex flex-col md:flex-row justify-between items-end gap-8 relative z-20">
+            <div className="max-w-[1440px] mx-auto px-6 mb-12 md:mb-16 flex flex-col md:flex-row justify-between items-center md:items-end gap-8 relative z-20 text-center md:text-left">
                 <div>
-                    <div className="text-vibranium text-xs font-mono uppercase tracking-[0.25em] mb-4">
+                    <div className="text-vibranium text-[10px] md:text-xs font-mono uppercase tracking-[0.25em] mb-4">
                         Selected_Works
                     </div>
-                    <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase ">
+                    <h2 className="text-3xl md:text-6xl font-display font-bold text-white uppercase ">
                         Digital <span className="text-vibranium">Archive</span>
                     </h2>
                 </div>

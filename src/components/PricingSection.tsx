@@ -63,8 +63,8 @@ export function PricingSection() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge mb-6">
                     ENGINEERING_SUBSCRIPTION
                 </div>
-                <h2 className="text-4xl md:text-6xl font-display font-bold text-white uppercase  leading-none mb-6">
-                    Engineering {" "} as a <br />
+                <h2 className="text-3xl md:text-6xl font-display font-bold text-white uppercase leading-[1.1] md:leading-none mb-6">
+                    Engineering {" "} as a <br className="hidden md:block" />
                     <span className="text-vibranium">
                         Service
                     </span>
@@ -126,7 +126,7 @@ export function PricingSection() {
                             className={cn(
                                 "group relative p-8 border flex flex-col sharp-edge transition-all duration-500",
                                 plan.highlight
-                                    ? "bg-[#8B5CF6]/5 border-[#8B5CF6] z-10 scale-105 shadow-[0_0_40px_-10px_rgba(139,92,246,0.15)]"
+                                    ? "bg-[#8B5CF6]/5 border-[#8B5CF6] z-10 md:scale-105 shadow-[0_0_40px_-10px_rgba(139,92,246,0.15)]"
                                     : "bg-[#0A0A0A] border-white/10 hover:border-white/30 hover:bg-[#0A0A0A]/80"
                             )}
                         >
@@ -150,7 +150,7 @@ export function PricingSection() {
                             {/* Price */}
                             <div className="flex justify-center items-baseline gap-1 mb-8 border-b border-white/5 pb-8">
                                 <span className="text-zinc-400 font-mono text-base">$</span>
-                                <span className="text-5xl font-display font-bold text-white">
+                                <span className="text-4xl md:text-5xl font-display font-bold text-white">
                                     {displayPrice.toLocaleString()}
                                 </span>
                                 <span className="text-zinc-600 font-mono text-xs">/mo</span>

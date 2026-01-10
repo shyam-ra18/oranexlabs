@@ -33,17 +33,17 @@ export function ProcessSection() {
     return (
         <GridSection id="process" className="bg-background py-32 border-b border-white/5">
             <div className="max-w-[1440px] mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
+                <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 md:mb-24 gap-8 text-center md:text-left">
                     <div className="space-y-6">
-                        <div className="text-xs font-mono text-vibranium uppercase tracking-widest">
+                        <div className="text-[10px] md:text-xs font-mono text-vibranium uppercase tracking-widest">
                             Execution_Framework_v4.0
                         </div>
-                        <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase  leading-[0.9]">
-                            Our <br />
+                        <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
+                            Our <br className="hidden md:block" />
                             <span className="text-vibranium">Protocol</span>
                         </h2>
                     </div>
-                    <div className="max-w-sm text-zinc-500 font-sans text-sm leading-relaxed text-right md:text-left">
+                    <div className="max-w-sm text-zinc-500 font-sans text-sm md:text-base leading-relaxed md:text-left">
                         A systematic approach to digital engineering that eliminates latency between vision and production.
                     </div>
                 </div>

@@ -10,16 +10,16 @@ export function HeroSection() {
             <DataStreamBackground />
 
             {/* 2. CONTENT: Agency Focused */}
-            <div className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto px-4 space-y-10 mt-16">
+            <div className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto px-6 space-y-8 md:space-y-12 mt-10 md:mt-20">
 
                 {/* Headline */}
                 <motion.h1
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-wider leading-[0.95]"
+                    className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-wider leading-[1.2] md:leading-[0.95]"
                 >
-                    WEB. MOBILE. <br />
+                    WEB. MOBILE. <br className="md:block" />
                     <span className="text-vibranium">
                         AUTONOMOUS AI.
                     </span>
@@ -30,7 +30,7 @@ export function HeroSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.7, delay: 0.3 }}
-                    className="text-zinc-500 text-lg md:text-xl max-w-2xl font-sans leading-relaxed"
+                    className="text-zinc-500 text-base md:text-xl max-w-2xl font-sans leading-relaxed px-4"
                 >
                     We engineer high-performance digital infrastructure. <br className="hidden md:block" />
                     From scalable mobile apps to custom intelligent agents.
@@ -41,7 +41,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 }}
-                    className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto justify-center"
+                    className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center pt-4"
                 >
                     <FillButton
                         text="Start Your Project"

@@ -1,4 +1,3 @@
-
 import { ArrowUpRight, Github, Instagram, Linkedin, Twitter } from "lucide-react";
 
 export function Footer() {
@@ -46,12 +45,16 @@ export function Footer() {
                         {/* THE HOVER GRADIENT LINE */}
                         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-8 h-8 bg-vibranium sharp-edge flex items-center justify-center">
-                                <span className="text-white font-bold text-lg">O</span>
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className="relative flex items-center justify-start overflow-hidden">
+                                <img
+                                    src="/oranex-logo.svg"
+                                    alt="Oranex Logo"
+                                    className="w-[50px] md:w-[65px] h-auto"
+                                />
                             </div>
-                            <h2 className="text-2xl font-display font-bold text-white  uppercase group-hover:text-vibranium transition-colors">
-                                Oranex Labs
+                            <h2 className="text-xl md:text-2xl font-display font-bold text-white uppercase group-hover:text-vibranium transition-colors pt-1">
+                                Oranex <span className="text-vibranium">Labs</span>
                             </h2>
                         </div>
                         <div className="space-y-1 text-zinc-500 text-sm font-sans">

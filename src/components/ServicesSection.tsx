@@ -95,17 +95,17 @@ export function ServicesSection() {
         <GridSection hasBorderBottom={true} className="bg-[#050505] py-32 overflow-hidden" id="services">
 
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 px-6 md:px-0">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 md:mb-20 gap-8 px-6 md:px-0 text-center md:text-left">
                 <div className="space-y-6">
-                    <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
-                        Our <br />
+                    <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
+                        Our <br className="hidden md:block" />
                         <span className="text-[#8B5CF6]">
                             Expertise
                         </span>
                     </h2>
                 </div>
-                <p className="text-zinc-500 text-lg max-w-sm text-right font-sans leading-relaxed">
-                    We don't just write code.<br />
+                <p className="text-zinc-500 text-sm md:text-lg max-w-sm md:text-right font-sans leading-relaxed">
+                    We don't just write code.<br className="hidden md:block" />
                     We engineer digital assets that compound in value.
                 </p>
             </div>
@@ -129,7 +129,7 @@ export function ServicesSection() {
 // --- INDIVIDUAL CARD COMPONENT ---
 function ServiceCard({ id, title, description, tags, visual }: any) {
     return (
-        <div className="group relative border-b border-r border-white/10 bg-[#050505] hover:bg-white/[0.02] transition-colors duration-500 overflow-hidden flex flex-col h-[500px]">
+        <div className="group relative border-b border-r border-white/10 bg-[#050505] hover:bg-white/[0.02] transition-colors duration-500 overflow-hidden flex flex-col h-[450px] md:h-[500px]">
 
             {/* 1. TOP: Abstract Visual Zone (50% Height) */}
             <div className="h-1/2 w-full relative overflow-hidden flex items-center justify-center border-b border-white/5 p-8">

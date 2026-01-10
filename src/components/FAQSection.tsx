@@ -38,13 +38,21 @@ export function FAQSection() {
                     {/* --- LEFT COLUMN: Sticky Header (Cols 1-5) --- */}
                     <div className="lg:col-span-5 p-8 md:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-white/10 relative">
                         <div className="lg:sticky lg:top-32 space-y-8">
-                            <h2 className="text-5xl md:text-6xl font-display font-bold text-white uppercase  leading-[0.9]">
-                                Process <br />
-                                <span className="text-vibranium">Queries</span>
-                            </h2>
-                            <p className="text-zinc-500 text-lg max-w-sm font-sans leading-relaxed">
-                                Technical clarity regarding our engineering standards, engagement models, and delivery protocols.
-                            </p>
+                            {/* Header */}
+                            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 md:mb-24 gap-8 px-6 md:px-0">
+                                <div className="space-y-6 text-center md:text-left">
+                                    <div className="text-[10px] md:text-xs font-mono text-vibranium uppercase tracking-[0.3em]">
+                                        Support_Inquiries
+                                    </div>
+                                    <h2 className="text-3xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
+                                        Common <br className="hidden md:block" />
+                                        <span className="text-vibranium">Context</span>
+                                    </h2>
+                                </div>
+                                <div className="max-w-sm text-zinc-500 font-sans text-sm md:text-base leading-relaxed text-center md:text-right">
+                                    Everything you need to know about our engineering process and partnership protocols.
+                                </div>
+                            </div>
 
                             {/* Decorative Line */}
                             <div className="w-12 h-[1px] bg-vibranium" />
