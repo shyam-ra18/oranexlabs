@@ -1,82 +1,116 @@
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import type { ReactNode } from "react";
+import { ArrowRight, Terminal } from "lucide-react";
 
 export function HeroSection() {
     return (
-        <section className="relative min-h-screen w-full bg-background flex flex-col items-center justify-center overflow-hidden border-b border-white/10">
+        <section className="relative min-h-[90vh] w-full bg-background flex flex-col items-center justify-center overflow-hidden border-b border-white/10 pt-32 pb-20">
 
-            {/* 1. BACKGROUND: Ultra-Thin Vibranium Streams */}
+            {/* 1. BACKGROUND: Ultra-Thin Data Streams */}
             <DataStreamBackground />
 
             {/* 2. CONTENT: Agency Focused */}
-            <div className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto px-6 space-y-8 md:space-y-12 mt-10 md:mt-20">
+            <div className="relative z-20 flex flex-col items-center text-center max-w-5xl mx-auto px-6 space-y-8">
+
+                {/* Top Badge */}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-[10px] font-mono text-zinc-400 uppercase tracking-widest group cursor-pointer hover:border-vibranium/50 transition-colors"
+                >
+                    <span className="w-1.5 h-1.5 rounded-full bg-vibranium animate-pulse" />
+                    Now Accepting Q1 Projects
+                    <ArrowRight size={10} className="group-hover:translate-x-1 transition-transform" />
+                </motion.div>
 
                 {/* Headline */}
                 <motion.h1
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.7, delay: 0.1 }}
-                    className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white tracking-wider leading-[1.2] md:leading-[0.95]"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="text-4xl sm:text-6xl md:text-8xl font-display font-bold text-white tracking-tight leading-[1.1]"
                 >
-                    WEB. MOBILE. <br className="md:block" />
-                    <span className="text-vibranium">
-                        AUTONOMOUS AI.
-                    </span>
+                    Turning Vision <br />
+                    Into <span className="text-vibranium">Digital Assets</span>
                 </motion.h1>
 
                 {/* Subtext */}
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.7, delay: 0.3 }}
-                    className="text-zinc-500 text-base md:text-xl max-w-2xl font-sans leading-relaxed px-4"
+                    transition={{ duration: 0.7, delay: 0.4 }}
+                    className="text-zinc-500 text-base md:text-lg max-w-2xl font-sans leading-relaxed"
                 >
-                    We engineer high-performance digital infrastructure. <br className="hidden md:block" />
-                    From scalable mobile apps to custom intelligent agents.
+                    We engineer high-performance web platforms, mobile software, and <br className="hidden md:block" />
+                    autonomous AI agents for founders who value velocity.
                 </motion.p>
 
-                {/* Single Premium CTA */}
+                {/* Firecrawl-style Input UI */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center pt-4"
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="w-full max-w-2xl mt-4"
                 >
-                    <FillButton
-                        text="Start Your Project"
-                        icon={<ArrowRight size={16} />}
-                    />
+                    <div className="relative group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-vibranium/20 to-transparent blur opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                        <div className="relative flex flex-col md:flex-row items-center gap-2 p-2 bg-[#0A0A0A] border border-white/10 sharp-edge shadow-2xl">
+                            <div className="flex-1 flex items-center gap-3 px-4 py-3 md:py-0 w-full">
+                                <Terminal size={18} className="text-zinc-600" />
+                                <input
+                                    type="text"
+                                    placeholder="Briefly describe your project idea..."
+                                    className="w-full bg-transparent border-none outline-none text-sm font-mono text-white placeholder-zinc-700"
+                                />
+                            </div>
+                            <TechButton
+                                text="ANALYZE_SCOPE"
+                                icon={<ArrowRight size={14} />}
+                                className="w-full md:w-auto"
+                            />
+                        </div>
+                    </div>
+                    {/* Input Sub-label */}
+                    <div className="flex justify-between mt-3 px-2">
+                        <div className="flex gap-4 text-[9px] font-mono text-zinc-700 uppercase tracking-wider">
+                            <span>#NextJS</span>
+                            <span>#AI_Agent</span>
+                            <span>#Engineering</span>
+                        </div>
+                        <span className="text-[9px] font-mono text-vibranium/50 uppercase tracking-tighter">Enter to Initialize</span>
+                    </div>
                 </motion.div>
             </div>
 
-            {/* 3. METADATA FOOTER */}
-            <div className="absolute bottom-0 w-full p-8 flex justify-between items-end pointer-events-none">
-                <div className="hidden md:flex gap-8 text-[10px] font-mono text-zinc-700 uppercase tracking-widest">
-                    <div className="flex items-center gap-2">
-                        <span className="w-1 h-1 bg-vibranium" />
-                        Status: Accepting Clients
-                    </div>
-                    <div>Stack: React / Native / Python</div>
-                </div>
-                <div className="hidden md:block text-[10px] font-mono text-zinc-800 uppercase tracking-widest">
-                    Est. 2026
-                </div>
-            </div>
+            {/* Scrolling Decorative Lines */}
+            <DataStreamBackground />
         </section>
     );
 }
 
 // --- SUB-COMPONENTS ---
 
-function FillButton({ text, icon }: { text: string; icon: ReactNode }) {
+
+function TechButton({ text, icon, className }: { text: string; icon: any; className?: string }) {
     return (
-        <button className="group relative px-10 py-5 bg-white text-black font-bold uppercase text-xs tracking-[0.2em] sharp-edge overflow-hidden transition-all hover:shadow-[0_0_30px_-5px_rgba(139,92,246,0.5)]">
-            <span className="relative z-10 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+        <button className={cn(
+            "group relative px-8 py-3 bg-vibranium text-white font-bold text-xs uppercase tracking-[0.2em] sharp-edge overflow-hidden transition-all hover:shadow-[0_0_30px_-5px_#8B5CF6]",
+            className
+        )}>
+            <div className="relative z-10 flex items-center justify-center gap-3 group-hover:text-black transition-colors duration-300">
                 {text} {icon}
-            </span>
-            {/* The Fill Animation Layer - Uses brand-purple */}
-            <div className="absolute inset-0 bg-vibranium transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out will-change-transform" />
+            </div>
+
+            {/* The Scanning Light Effect */}
+            <div className="absolute inset-0 w-[50%] h-full bg-white/20 -skew-x-[45deg] -translate-x-[150%] group-hover:translate-x-[250%] transition-transform duration-700 ease-in-out" />
+
+            {/* Corner Notch Overlay (Holographic feel) */}
+            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/40 group-hover:border-black/40 transition-colors" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white/40 group-hover:border-black/40 transition-colors" />
+
+            {/* Background Fill */}
+            <div className="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
         </button>
     );
 }
@@ -84,11 +118,11 @@ function FillButton({ text, icon }: { text: string; icon: ReactNode }) {
 function DataStreamBackground() {
     // Generate random lines for the "Data Tunnel" effect
     // Reduced opacity range for a more subtle look
-    const lines = Array(48).fill(null).map(() => ({
+    const lines = Array(32).fill(null).map(() => ({
         top: `${Math.random() * 100}%`,
         width: `${Math.random() * 40 + 10}%`,
-        duration: Math.random() * 8 + 5, // Slower for elegance
-        delay: Math.random() * 5,
+        duration: Math.random() * 8 + 6, // Slower for elegance
+        delay: Math.random() * 7,
         opacity: Math.random() * 0.4 + 0.1,
     }));
 

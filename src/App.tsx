@@ -25,8 +25,8 @@ function App() {
         <Navbar />
 
         {/* Main Grid Wrapper providing the continuous lines */}
-        <GridContainer isMainContainer={true} className="border-t-0">
-          <main className="relative z-10">
+        <GridContainer isMainContainer={true} className="border-t-0 p-0">
+          <main className="relative z-10 w-full">
             <HeroSection />
 
             <ClientLogos />

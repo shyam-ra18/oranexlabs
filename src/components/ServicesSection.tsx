@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
+import { cn } from "@/lib/utils";
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -14,44 +15,38 @@ const services = [
     {
         id: "01",
         title: "Web Platforms",
-        description: "Next.js architectures built for velocity. We engineer SEO-optimized applications that feel like native software.",
+        description: "Next.js architectures built for velocity. SEO-optimized applications that feel like native software.",
         tags: ["React", "Next.js", "Vercel"],
-        visual: "web"
     },
     {
         id: "02",
         title: "Autonomous AI",
-        description: "Agentic workflows that think. We fine-tune LLMs and build RAG pipelines to automate complex business logic.",
+        description: "Agentic workflows that think. Fine-tuned LLMs and RAG pipelines to automate complex business logic.",
         tags: ["Python", "LangChain", "OpenAI"],
-        visual: "ai"
     },
     {
         id: "03",
         title: "Mobile Engineering",
-        description: "60fps everywhere. React Native solutions that share code while delivering uncompromising native performance.",
+        description: "60fps everywhere. React Native solutions that share code while delivering uncompromising performance.",
         tags: ["React Native", "Expo", "Swift"],
-        visual: "mobile"
     },
     {
         id: "04",
         title: "Product Design",
-        description: "Technical aesthetics. We bridge the gap between Figma and code with a systematic design approach.",
+        description: "Technical aesthetics. Bridging the gap between Figma and code with a systematic design approach.",
         tags: ["Figma", "Design Systems", "UX"],
-        visual: "design"
     },
     {
         id: "05",
         title: "Cloud Infra",
         description: "Serverless scalability. AWS/GCP architectures designed for 99.99% uptime and zero maintenance.",
         tags: ["AWS", "Docker", "Terraform"],
-        visual: "cloud"
     },
     {
         id: "06",
         title: "SaaS Systems",
         description: "Business OS. Custom CRM and dashboard solutions with real-time data sync and role-based security.",
         tags: ["PostgreSQL", "Redis", "Realtime"],
-        visual: "saas"
     }
 ];
 
@@ -63,28 +58,22 @@ export function ServicesSection() {
     useGSAP(() => {
         const cards = cardsRef.current;
 
-        // Create animation
         gsap.fromTo(cards,
             {
                 autoAlpha: 0,
-                // Using function-based values for randomness
-                x: () => Math.random() * 200 - 100,
-                y: () => Math.random() * 200 + 100,
-                scale: 0.8,
+                y: 100,
                 filter: "blur(10px)"
             },
             {
-                duration: 1.2,
+                duration: 1,
                 autoAlpha: 1,
-                x: 0,
                 y: 0,
-                scale: 1,
                 filter: "blur(0px)",
-                stagger: 0.1, // Sequential delay
+                stagger: 0.1,
                 ease: "power4.out",
                 scrollTrigger: {
                     trigger: containerRef.current,
-                    start: "top 75%", // Triggers when top of section hits 75% of viewport
+                    start: "top 80%",
                     toggleActions: "play none none reverse"
                 }
             }
@@ -95,28 +84,28 @@ export function ServicesSection() {
         <GridSection hasBorderBottom={true} className="bg-[#050505] py-32 overflow-hidden" id="services">
 
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 md:mb-20 gap-8 px-6 md:px-0 text-center md:text-left">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8 px-6 md:px-0">
                 <div className="space-y-6">
-                    <h2 className="text-4xl md:text-7xl font-display font-bold text-white uppercase leading-[0.9]">
-                        Our <br className="hidden md:block" />
+                    <h2 className="text-5xl md:text-7xl font-display font-bold text-white uppercase tracking-tight leading-[0.9]">
+                        Our <br />
                         <span className="text-[#8B5CF6]">
                             Expertise
                         </span>
                     </h2>
                 </div>
-                <p className="text-zinc-500 text-sm md:text-lg max-w-sm md:text-right font-sans leading-relaxed">
-                    We don't just write code.<br className="hidden md:block" />
+                <p className="text-zinc-500 text-lg max-w-sm text-right font-sans leading-relaxed">
+                    We don't just write code.<br />
                     We engineer digital assets that compound in value.
                 </p>
             </div>
 
-            {/* The Grid System */}
-            <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-white/10">
+            {/* The Grid System with Spacing */}
+            <div ref={containerRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-6 md:px-0">
                 {services.map((service, index) => (
                     <div
                         key={index}
-                        ref={(el) => { if (el) cardsRef.current[index] = el }} // Assign ref
-                        className="opacity-0 visibility-hidden" // Hide initially for GSAP
+                        ref={(el) => { if (el) cardsRef.current[index] = el }}
+                        className="opacity-0 visibility-hidden h-full"
                     >
                         <ServiceCard {...service} />
                     </div>
@@ -127,47 +116,63 @@ export function ServicesSection() {
 }
 
 // --- INDIVIDUAL CARD COMPONENT ---
-function ServiceCard({ id, title, description, tags, visual }: any) {
+function ServiceCard({ id, title, description, tags }: any) {
     return (
-        <div className="group relative border-b border-r border-white/10 bg-[#050505] hover:bg-white/[0.02] transition-colors duration-500 overflow-hidden flex flex-col h-[450px] md:h-[500px]">
+        <div className="group relative bg-[#0A0A0A] border border-white/10 sharp-edge overflow-hidden flex flex-col h-[500px] transition-all duration-500 hover:border-[#8B5CF6]/50 hover:shadow-[0_0_30px_-10px_rgba(139,92,246,0.3)]">
 
-            {/* 1. TOP: Abstract Visual Zone (50% Height) */}
-            <div className="h-1/2 w-full relative overflow-hidden flex items-center justify-center border-b border-white/5 p-8">
-                {/* Background Grid Pattern in visual zone */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(128,128,128,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.07)_1px,transparent_1px)] bg-[size:20px_20px]" />
+            {/* 1. TOP: Grainy Gradient Zone (45% Height) */}
+            <div className="relative h-[45%] w-full overflow-hidden">
 
-                {/* The Abstract Art */}
-                <div className="relative z-10 transition-transform duration-700 group-hover:scale-110">
-                    <AbstractArt variant={visual} />
+                {/* Grain Texture Overlay */}
+                <div className="absolute inset-0 z-10 opacity-30 pointer-events-none mix-blend-overlay"
+                    style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%270 0 400 400%27 xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cfilter id=%27noiseFilter%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23noiseFilter)%27/%3E%3C/svg%3E")' }}
+                />
+
+                {/* Animated Gradient Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#8B5CF6]/20 via-[#050505] to-[#8B5CF6]/5 group-hover:from-[#8B5CF6]/40 group-hover:to-[#8B5CF6]/10 transition-all duration-1000 ease-in-out" />
+
+                {/* SVG Curves on Hover */}
+                <div className="absolute inset-0 z-20 opacity-0 group-hover:opacity-40 transition-opacity duration-700 pointer-events-none">
+                    <img
+                        src="/curvess.svg"
+                        alt=""
+                        className="w-full h-full object-cover scale-150 group-hover:scale-100 transition-transform duration-1000 ease-out"
+                    />
                 </div>
 
-                {/* Hover Glow */}
-                <div className="absolute inset-0 bg-[#8B5CF6]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Moving Light Orb */}
+                <motion.div
+                    className="absolute top-1/2 left-1/2 w-[200%] h-[200%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15)_0%,transparent_50%)] group-hover:bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.3)_0%,transparent_60%)] transition-all duration-1000"
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 45, 0]
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                />
+
+
+                {/* Arrow Icon */}
+                <div className="absolute top-6 right-6 z-20">
+                    <ArrowUpRight className="text-white/50 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" size={20} />
+                </div>
             </div>
 
-            {/* 2. BOTTOM: Content Zone (50% Height) */}
-            <div className="h-1/2 p-8 md:p-10 flex flex-col justify-between">
+            {/* 2. BOTTOM: Content Zone (55% Height) */}
+            <div className="flex-1 p-8 md:p-10 flex flex-col justify-between border-t border-white/10 bg-[#0A0A0A] group-hover:bg-[#0F0F0F] transition-colors">
                 <div>
-                    <div className="flex justify-between items-start mb-6">
-                        <span className="text-xs font-mono text-[#8B5CF6] uppercase tracking-widest">
-                            {id}
-                        </span>
-                        <ArrowUpRight className="text-zinc-600 group-hover:text-white group-hover:-translate-y-1 group-hover:translate-x-1 transition-all duration-300" size={20} />
-                    </div>
-
-                    <h3 className="text-2xl font-display font-bold text-white uppercase  mb-4 group-hover:text-[#8B5CF6] transition-colors">
+                    <h3 className="text-3xl font-display font-bold text-white uppercase tracking-tight mb-4 group-hover:text-[#8B5CF6] transition-colors">
                         {title}
                     </h3>
 
-                    <p className="text-zinc-500 text-sm leading-relaxed font-sans max-w-xs group-hover:text-zinc-400 transition-colors">
+                    <p className="text-zinc-500 text-sm leading-relaxed font-sans max-w-sm group-hover:text-zinc-400 transition-colors">
                         {description}
                     </p>
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap gap-2 mt-auto">
+                <div className="flex flex-wrap gap-2 mt-auto pt-6">
                     {tags.map((tag: string) => (
-                        <span key={tag} className="px-2 py-1 border border-white/10 text-[10px] font-mono uppercase text-zinc-500 sharp-edge group-hover:border-[#8B5CF6]/30 group-hover:text-[#8B5CF6] transition-colors">
+                        <span key={tag} className="px-3 py-1.5 border border-white/10 text-[10px] font-mono uppercase text-zinc-500 sharp-edge group-hover:border-[#8B5CF6]/30 group-hover:text-[#8B5CF6] transition-colors bg-white/5">
                             {tag}
                         </span>
                     ))}
@@ -175,120 +180,4 @@ function ServiceCard({ id, title, description, tags, visual }: any) {
             </div>
         </div>
     );
-}
-
-// --- CSS ABSTRACT ART GENERATOR ---
-function AbstractArt({ variant }: { variant: string }) {
-    switch (variant) {
-        case "web":
-            return (
-                <div className="relative w-32 h-24 border border-white/20 bg-zinc-900/50 backdrop-blur-sm sharp-edge flex flex-col group-hover:border-[#8B5CF6]/50 transition-colors">
-                    <div className="h-6 border-b border-white/10 flex items-center px-2 gap-1.5">
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-500/50" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/50" />
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
-                    </div>
-                    <div className="p-2 space-y-1.5">
-                        <div className="w-3/4 h-1.5 bg-white/10 animate-pulse" />
-                        <div className="w-1/2 h-1.5 bg-white/10" />
-                        <div className="w-full h-1.5 bg-white/5" />
-                        <motion.div
-                            animate={{ y: [0, -5, 0] }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -right-4 -bottom-4 w-12 h-12 border border-[#8B5CF6] bg-black/80 sharp-edge flex items-center justify-center"
-                        >
-                            <span className="text-[8px] font-mono text-[#8B5CF6]">JS</span>
-                        </motion.div>
-                    </div>
-                </div>
-            );
-        case "ai":
-            return (
-                <div className="relative w-24 h-24 flex items-center justify-center">
-                    <div className="w-12 h-12 bg-[#8B5CF6]/20 border border-[#8B5CF6] sharp-edge rotate-45 flex items-center justify-center relative z-10">
-                        <div className="w-4 h-4 bg-[#8B5CF6] sharp-edge" />
-                    </div>
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 border border-white/10 rounded-full"
-                    >
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1.5 w-3 h-3 bg-zinc-800 border border-white/20 sharp-edge" />
-                    </motion.div>
-                    <motion.div
-                        animate={{ rotate: -360 }}
-                        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-4 border border-white/10 rounded-full"
-                    >
-                        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1.5 w-2 h-2 bg-[#8B5CF6] sharp-edge" />
-                    </motion.div>
-                </div>
-            );
-        case "mobile":
-            return (
-                <div className="relative w-20 h-32 border border-white/20 bg-zinc-900/50 backdrop-blur-sm sharp-edge flex flex-col items-center py-2 group-hover:border-[#8B5CF6]/50 transition-colors">
-                    <div className="w-8 h-1 bg-white/10 rounded-full mb-4" />
-                    <div className="grid grid-cols-2 gap-2">
-                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
-                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
-                        <div className="w-6 h-6 bg-[#8B5CF6]/20 sharp-edge" />
-                        <div className="w-6 h-6 bg-white/5 sharp-edge" />
-                    </div>
-                </div>
-            );
-        case "design":
-            return (
-                <div className="relative w-24 h-24">
-                    <motion.div
-                        className="absolute top-0 left-0 w-16 h-16 border border-white/20 bg-transparent sharp-edge z-10"
-                        animate={{ x: [0, 10, 0], y: [0, 10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                    />
-                    <motion.div
-                        className="absolute bottom-0 right-0 w-16 h-16 border border-[#8B5CF6] bg-[#8B5CF6]/10 sharp-edge"
-                        animate={{ x: [0, -10, 0], y: [0, -10, 0] }}
-                        transition={{ duration: 4, repeat: Infinity }}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-1 h-12 bg-white/20 rotate-45" />
-                        <div className="w-1 h-12 bg-white/20 -rotate-45" />
-                    </div>
-                </div>
-            );
-        case "cloud":
-            return (
-                <div className="relative w-32 h-20 flex items-center justify-center gap-4">
-                    <div className="w-16 h-16 border border-dashed border-white/20 sharp-edge flex items-center justify-center">
-                        <div className="w-8 h-8 bg-white/5 sharp-edge" />
-                    </div>
-                    <motion.div
-                        className="flex gap-1"
-                        animate={{ opacity: [0.2, 1, 0.2] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    >
-                        <div className="w-1 h-1 bg-[#8B5CF6]" />
-                        <div className="w-1 h-1 bg-[#8B5CF6]" />
-                        <div className="w-1 h-1 bg-[#8B5CF6]" />
-                    </motion.div>
-                    <div className="w-12 h-12 border border-[#8B5CF6] bg-[#8B5CF6]/10 sharp-edge flex items-center justify-center">
-                        <div className="w-1 h-4 bg-[#8B5CF6]" />
-                        <div className="w-4 h-1 bg-[#8B5CF6] absolute" />
-                    </div>
-                </div>
-            );
-        default:
-            // SaaS / Dashboard
-            return (
-                <div className="w-32 h-20 border border-white/20 bg-zinc-900/50 sharp-edge p-2 grid grid-cols-3 gap-1">
-                    <div className="col-span-1 bg-[#8B5CF6]/20 h-full w-full" />
-                    <div className="col-span-2 space-y-1">
-                        <div className="w-full h-1/2 bg-white/5" />
-                        <div className="flex gap-1 h-1/2">
-                            <div className="w-1/2 bg-white/5" />
-                            <div className="w-1/2 bg-white/5" />
-                        </div>
-                    </div>
-                </div>
-            );
-    }
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -59,30 +59,7 @@
   background: #8B5CF6;
 }
 
-/* Font Faces */
-@font-face {
-  font-family: 'Satoshi';
-  src: url('/fonts/Satoshi-Variable.woff2') format('woff2');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Clash Display';
-  src: url('/fonts/ClashDisplay-Variable.woff2') format('woff2');
-  font-weight: 900;
-  font-display: swap;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Sk Cuber';
-  src: url('/fonts/sk-cuber-rounded-2.ttf') format('truetype');
-  font-weight: 200 700;
-  font-display: swap;
-  font-style: normal;
-}
+/* Font migration completed - using Google Fonts */
 
 /* This creates the top/bottom fade effect for the scrolling container */
 .mask-gradient-vertical {

@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { useState, type MouseEvent as ReactMouseEvent } from "react";
-
+import { useState, useEffect, type MouseEvent as ReactMouseEvent } from "react";
 
 const navLinks = [
     { name: "Services", href: "#services" },
@@ -12,6 +12,15 @@ const navLinks = [
 
 export function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { scrollY } = useScroll();
+
+    // Track scroll for sticky transition
+    useEffect(() => {
+        return scrollY.on("change", (latest) => {
+            setIsScrolled(latest > 50);
+        });
+    }, [scrollY]);
 
     const handleScroll = (e: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
         e.preventDefault();
@@ -19,86 +28,117 @@ export function Navbar() {
 
         const target = document.querySelector(href);
         if (target) {
-            // @ts-ignore
-            if (window.lenis) {
-                // @ts-ignore
-                window.lenis.scrollTo(target, {
-                    duration: 1.5,
-                    easing: (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
-                });
-            } else {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+            target.scrollIntoView({ behavior: 'smooth' });
         }
     };
 
     return (
         <>
             <motion.nav
-                initial={{ y: -100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="fixed top-4 md:top-6 inset-x-0 mx-auto max-w-7xl z-50 px-4 md:px-8"
+                initial={{ y: -100 }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={cn(
+                    "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-in-out",
+                    isScrolled
+                        ? "py-4 md:py-6 px-4 md:px-8"
+                        : "py-0 px-0"
+                )}
             >
-                <div className="relative w-full bg-background/90 backdrop-blur-xl border border-white/10 flex items-center justify-between px-6 md:px-10 py-4 shadow-2xl sharp-edge">
-
-                    {/* 1. Logo Section */}
-                    <a
-                        href="#"
-                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                        className="flex items-center gap-4 group relative z-50 flex-1 md:flex-none"
-                    >
-                        <div className="relative flex items-center justify-start overflow-hidden">
-                            <img
-                                src="/oranex-logo.svg"
-                                alt="Oranex Logo"
-                                className="w-[45px] h-auto"
-                            />
-                        </div>
-                        {/* <span className="text-white text-sm font-display font-bold tracking-[0.2em] hidden md:block">
-                            ORANEX<span className="text-vibranium">.LABS</span>
-                        </span> */}
-                    </a>
-
-                    {/* 2. Desktop Navigation */}
-                    <div className="hidden lg:flex items-center gap-12">
-                        {navLinks.map((link) => (
-                            <a
-                                key={link.name}
-                                href={link.href}
-                                onClick={(e) => handleScroll(e, link.href)}
-                                className="relative py-2 text-[11px] font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-[0.2em] group overflow-hidden"
-                            >
-                                {link.name}
-                                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
-                            </a>
-                        ))}
-                    </div>
-
-                    {/* 3. Actions */}
-                    <div className="flex items-center gap-6 relative z-50">
+                <div className={cn(
+                    "relative w-full mx-auto transition-all duration-500 ease-in-out",
+                    isScrolled
+                        ? "max-w-7xl bg-background/80 backdrop-blur-xl border border-white/10 shadow-2xl px-6 md:px-10 py-3"
+                        : "max-w-[1440px] bg-transparent border-b border-white/10 px-6 md:px-12 py-6"
+                )}>
+                    <div className="flex items-center justify-between">
+                        {/* 1. Logo Section */}
                         <a
-                            href="#contact"
-                            onClick={(e) => handleScroll(e, "#contact")}
-                            className="hidden lg:block px-8 py-3 bg-white text-black font-bold text-[10px] uppercase tracking-[0.2em] sharp-edge hover:bg-vibranium hover:text-white transition-all duration-300"
+                            href="#"
+                            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                            className="flex items-center gap-4 group relative z-50"
                         >
-                            Start Project
+                            <div className="relative flex items-center justify-start overflow-hidden">
+                                <img
+                                    src="/oranex-logo.svg"
+                                    alt="Oranex Logo"
+                                    className="w-[35px] md:w-[45px] h-auto transition-all duration-300"
+                                />
+                            </div>
+                            <span className={cn(
+                                "text-white text-xs md:text-sm font-display font-bold tracking-[0.2em] transition-opacity duration-300",
+                                isScrolled ? "opacity-100" : "opacity-0 md:opacity-100"
+                            )}>
+                                ORANEX<span className="text-vibranium">.LABS</span>
+                            </span>
                         </a>
 
-                        {/* Mobile Menu Button - Shown on md and below (until lg:flex kicks in) */}
-                        <button
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                            className="lg:hidden text-white hover:text-vibranium transition-colors p-2"
-                        >
-                            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-                        </button>
+                        {/* 2. Desktop Navigation */}
+                        <div className="hidden lg:flex items-center gap-10">
+                            {navLinks.map((link) => (
+                                <a
+                                    key={link.name}
+                                    href={link.href}
+                                    onClick={(e) => handleScroll(e, link.href)}
+                                    className="relative py-2 text-[10px] font-bold text-zinc-400 hover:text-white transition-colors uppercase tracking-[0.2em] group overflow-hidden"
+                                >
+                                    {link.name}
+                                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* 3. Actions */}
+                        <div className="flex items-center gap-6 relative z-50">
+                            <a
+                                href="#contact"
+                                onClick={(e) => handleScroll(e, "#contact")}
+                                className={cn(
+                                    "px-6 py-2.5 font-bold text-[10px] uppercase tracking-[0.2em] transition-all duration-300",
+                                    isScrolled
+                                        ? "bg-white text-black hover:bg-vibranium hover:text-white"
+                                        : "bg-vibranium text-white hover:bg-white hover:text-black"
+                                )}
+                            >
+                                Start Project
+                            </a>
+
+                            <button
+                                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                                className="lg:hidden text-white hover:text-vibranium transition-colors p-2"
+                            >
+                                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Decorative Corner Accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 pointer-events-none" />
-                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 pointer-events-none" />
-                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30 pointer-events-none" />
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 pointer-events-none" />
+                    {/* Decorative Corner Accents (Visible only when stuck) */}
+                    <AnimatePresence>
+                        {isScrolled && (
+                            <>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="absolute top-0 left-0 w-2 h-2 border-t border-l border-white/30 pointer-events-none"
+                                />
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="absolute top-0 right-0 w-2 h-2 border-t border-r border-white/30 pointer-events-none"
+                                />
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-white/30 pointer-events-none"
+                                />
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-white/30 pointer-events-none"
+                                />
+                            </>
+                        )}
+                    </AnimatePresence>
                 </div>
             </motion.nav>
 

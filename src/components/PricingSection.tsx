@@ -60,9 +60,6 @@ export function PricingSection() {
 
             {/* 1. Header */}
             <div className="text-center max-w-2xl mx-auto mb-16 px-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 border border-[#8B5CF6]/30 bg-[#8B5CF6]/5 text-[#8B5CF6] text-[10px] font-bold tracking-[0.2em] uppercase sharp-edge mb-6">
-                    ENGINEERING_SUBSCRIPTION
-                </div>
                 <h2 className="text-3xl md:text-6xl font-display font-bold text-white uppercase leading-[1.1] md:leading-none mb-6">
                     Engineering {" "} as a <br className="hidden md:block" />
                     <span className="text-vibranium">

@@ -10,7 +10,16 @@ interface GridContainerProps {
 export function GridContainer({ children, className, isMainContainer = false }: GridContainerProps) {
     if (isMainContainer) {
         return (
-            <div className={cn("relative w-full max-w-[1440px] mx-auto border-x border-white/10", className)}>
+            <div className={cn("relative w-full max-w-[1440px] mx-auto border-x border-white/10 min-h-screen", className)}>
+                {/* GLOBAL VERTICAL GRID LINES */}
+                <div className="absolute inset-0 pointer-events-none flex justify-between px-[inherit]">
+                    <div className="w-[1px] h-full bg-white/5" />
+                    <div className="w-[1px] h-full bg-white/5 hidden md:block" />
+                    <div className="w-[1px] h-full bg-white/5 hidden lg:block" />
+                    <div className="w-[1px] h-full bg-white/5 hidden lg:block" />
+                    <div className="w-[1px] h-full bg-white/5 hidden md:block" />
+                </div>
+
                 <div className="relative z-10">
                     {children}
                 </div>

@@ -5,39 +5,7 @@ export function Footer() {
         <footer className="w-full bg-background border-t border-white/10">
             <div className="max-w-[1440px] mx-auto">
 
-                {/* --- ROW 1: Navigation Links (4 Columns) --- */}
-                <div className="grid grid-cols-1 md:grid-cols-4 border-b border-white/10">
-                    <FooterColumn
-                        title="Services"
-                        links={["Web Platforms", "Mobile Engineering", "AI Agent Systems", "Cloud Architecture"]}
-                    />
-                    <FooterColumn
-                        title="Company"
-                        links={["About Oranex", "Case Studies", "Careers", "Contact"]}
-                    />
-                    <FooterColumn
-                        title="Resources"
-                        links={["Engineering Blog", "Open Source", "System Status", "Brand Assets"]}
-                    />
-
-                    {/* Social Column */}
-                    <div className="relative group p-8 md:p-12 border-b md:border-b-0 border-white/10 flex flex-col justify-between h-full hover:bg-white/[0.02] transition-colors">
-                        {/* THE HOVER GRADIENT LINE */}
-                        <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                        <div className="text-xs font-mono text-vibranium uppercase tracking-[0.2em] mb-8">
-                            Social_Grid
-                        </div>
-                        <div className="flex gap-4">
-                            <SocialIcon icon={Twitter} />
-                            <SocialIcon icon={Linkedin} />
-                            <SocialIcon icon={Github} />
-                            <SocialIcon icon={Instagram} />
-                        </div>
-                    </div>
-                </div>
-
-                {/* --- ROW 2: Brand & Contact (2 Columns) --- */}
+                {/* --- MAIN FOOTER GRID --- */}
                 <div className="grid grid-cols-1 md:grid-cols-2 border-b border-white/10">
 
                     {/* Left: Brand Identity */}
@@ -53,35 +21,43 @@ export function Footer() {
                                     className="w-[50px] md:w-[65px] h-auto"
                                 />
                             </div>
-                            <h2 className="text-xl md:text-2xl font-display font-bold text-white uppercase group-hover:text-vibranium transition-colors pt-1">
-                                Oranex <span className="text-vibranium">Labs</span>
+                            <h2 className="text-xl md:text-2xl font-display font-bold text-white uppercase cursor-pointer tracking-wider pt-1">
+                                Oranex Labs
                             </h2>
                         </div>
-                        <div className="space-y-1 text-zinc-500 text-sm font-sans">
-                            <p>Global HQ: San Francisco, CA</p>
-                            <p>Engineering: Pune, MH, India</p>
+                        <div className="text-zinc-500 text-sm font-mono uppercase tracking-widest">
+                            Engineering the <span className="text-vibranium/80">Autonomous</span> Future
                         </div>
                     </div>
 
-                    {/* Right: Direct Contact */}
-                    <div className="relative group p-8 md:p-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 hover:bg-white/[0.02] transition-colors">
+                    {/* Right: Socials & Contact */}
+                    <div className="relative group p-8 md:p-12 flex flex-col justify-center hover:bg-white/[0.02] transition-colors">
                         {/* THE HOVER GRADIENT LINE */}
                         <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        <div>
-                            <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2">
-                                New Business
+                        <div className="space-y-8">
+                            <div>
+                                <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-4">
+                                    Connect_Deep
+                                </div>
+                                <div className="flex gap-4">
+                                    <SocialIcon icon={Twitter} />
+                                    <SocialIcon icon={Linkedin} />
+                                    <SocialIcon icon={Github} />
+                                    <SocialIcon icon={Instagram} />
+                                </div>
                             </div>
-                            <a href="mailto:hello@oranexlabs.com" className="text-xl md:text-2xl text-white font-display uppercase hover:text-vibranium transition-colors flex items-center gap-2">
-                                hello@oranexlabs.com <ArrowUpRight size={18} className="text-vibranium" />
-                            </a>
-                        </div>
-                        <div>
-                            <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2">
-                                Emergency Ops
-                            </div>
-                            <div className="text-zinc-400 font-mono text-sm">
-                                +1 (415) 555-0199
+
+                            {/* Separator Line */}
+                            <div className="w-full h-px bg-white/10" />
+
+                            <div>
+                                <div className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest mb-2">
+                                    New Business
+                                </div>
+                                <a href="mailto:hello@oranexlabs.com" className="text-lg md:text-xl text-white font-display uppercase hover:text-vibranium transition-colors flex items-center gap-2">
+                                    hello@oranexlabs.com <ArrowUpRight size={18} className="text-vibranium" />
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -106,28 +82,6 @@ export function Footer() {
 }
 
 // --- SUB-COMPONENTS ---
-
-function FooterColumn({ title, links }: { title: string, links: string[] }) {
-    return (
-        <div className="relative group p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/10 hover:bg-white/[0.02] transition-colors">
-            {/* THE HOVER GRADIENT LINE */}
-            <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-vibranium to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-            <h4 className="text-xs font-mono text-vibranium uppercase tracking-[0.2em] mb-8">
-                {title}
-            </h4>
-            <ul className="space-y-4">
-                {links.map((link, i) => (
-                    <li key={i}>
-                        <a href="#" className="text-zinc-400 text-sm font-bold uppercase tracking-wide hover:text-white hover:pl-2 transition-all duration-300 block">
-                            {link}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    )
-}
 
 function SocialIcon({ icon: Icon }: { icon: any }) {
     return (

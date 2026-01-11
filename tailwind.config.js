@@ -22,9 +22,8 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['"Clash Display"', 'sans-serif'],
+        display: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
-        skcuber: ['"Sk Cuber"', 'sans-serif'],
       },
       backgroundImage: {
         'grid-white': 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
